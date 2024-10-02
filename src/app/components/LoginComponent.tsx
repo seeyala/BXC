@@ -1,5 +1,6 @@
 // src/app/components/LoginComponent.tsx
 import Image from 'next/image';
+import '../styles/global.css';
 
 const LoginComponent: React.FC = () => {
   return (
