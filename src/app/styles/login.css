@@ -61,6 +61,8 @@ body {
 
 .wrapper {
   width: 400px; /* Keep original width for larger screens */
+  max-height: 600px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
   border-radius: 8px;
   padding: 30px;
   text-align: center;
@@ -68,6 +70,7 @@ body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
 
 form {
   display: flex;
@@ -178,12 +181,6 @@ button:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.register {
-  text-align: center;
-  margin-top: 30px;
-  color: #fff;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .wrapper {
@@ -234,9 +231,5 @@ button:hover {
   button {
     padding: 8px 12px; /* Adjust button padding for smaller screens */
     font-size: 14px; /* Smaller button font */
-  }
-
-  .register {
-    font-size: 0.9rem; /* Adjust register font size */
   }
 }
