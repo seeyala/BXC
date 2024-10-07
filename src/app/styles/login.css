@@ -1,0 +1,251 @@
+/* src/app/styles/login.css */
+
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+/* CSS Variables for Column Widths */
+:root {
+  --image-width: 65%; /* Width of the image column */
+  --login-width: 40%; /* Width of the login form column */
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the entire login page */
+.login-page {
+  display: flex; /* Create a flex container */
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  overflow: hidden; /* Prevent scroll due to child elements */
+}
+
+/* Left Side: Image */
+.image-side {
+  width: var(--image-width); /* Set width using CSS variable */
+  background-image: url('../images/BackGround.jpg'); /* Path to your image */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+}
+
+/* Right Side: Login Form */
+.wrapper {
+  width: var(--login-width); /* Set width using CSS variable */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  padding: 30px;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, 0); /* Optional: Divider between columns */
+  background-color: #003e8f; /* Semi-transparent background for contrast */
+  color: #fff; /* Text color */
+}
+
+.title {
+  position: absolute; /* Keep title absolutely positioned */
+  top: 20px; /* Vertical position */
+  left: 20px; /* Horizontal position */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  color: #fff; /* Text color */
+  font-size: 16px; /* Title font size */
+}
+
+.title-image {
+  width: 30px; /* Adjust the width of the placeholder image */
+  height: auto; /* Maintain the aspect ratio */
+  margin-right: 10px; /* Space between the image and title text */
+  filter: brightness(0) invert(1); /* Change image to white */
+}
+
+.title h1 {
+  margin: 0; /* Remove default margin for h1 */
+  font-size: 16px; /* Title font size */
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px; /* Max width of the form */
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Additional styles for input field */
+.input-field {
+  position: relative; /* Ensure the input field has relative positioning */
+  border-bottom: 2px solid #ccc; /* Original underline */
+  margin: 15px 0;
+  padding-right: 40px; /* Add padding to make space for icon */
+}
+
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
+}
+
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+}
+
+/* Style for password toggle icon */
+.password-toggle {
+  position: absolute; /* Absolute positioning for alignment */
+  right: 0; /* Align to the right */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical centering */
+  cursor: pointer; /* Change cursor to pointer for better UX */
+  color: #fff; /* Icon color */
+  font-size: 18px; /* Icon size */
+  margin-left: 10px; /* Space between the input and icon */
+}
+
+/* Forgot Password and Remember Me Section */
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 35px 0;
+  color: #fff;
+}
+
+#remember {
+  accent-color: #fff;
+}
+
+.forget label {
+  display: flex;
+  align-items: center;
+}
+
+.forget label p {
+  margin-left: 8px;
+}
+
+/* Links */
+.wrapper a {
+  color: #efefef;
+  text-decoration: none;
+}
+
+.wrapper a:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+button {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Adjust the flex direction for smaller screens */
+  .login-page {
+    flex-direction: column;
+  }
+
+  .image-side, .wrapper {
+    width: 100%; /* Make both columns full width */
+    height: 50vh; /* Set height to half viewport height */
+  }
+
+  .wrapper {
+    border-left: none; /* Remove divider */
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust background for better visibility */
+  }
+
+  h2 {
+    font-size: 1.8rem; /* Slightly smaller heading for smaller screens */
+  }
+
+  .input-field input {
+    height: 35px; /* Adjust input size */
+    font-size: 15px; /* Adjust input font size */
+  }
+
+  .forget {
+    margin: 20px 0 30px 0; /* Adjust margins */
+  }
+
+  button {
+    padding: 10px 15px; /* Adjust button padding */
+    font-size: 15px; /* Adjust button font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.6rem; /* Smaller heading for mobile */
+  }
+
+  .input-field input {
+    height: 30px; /* Smaller input field */
+    font-size: 14px;
+  }
+
+  .forget {
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start; /* Align items to start */
+  }
+
+  button {
+    padding: 8px 12px; /* Adjust button padding for smaller screens */
+    font-size: 14px; /* Smaller button font */
+  }
+}
