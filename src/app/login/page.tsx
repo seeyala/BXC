@@ -1,5 +1,5 @@
 // src/app/login/page.tsx
-import LoginComponent from '../components/LoginComponent';
+import LoginComponent from '../../components/LoginComponent';
 
 const LoginPage = () => {
   return (
