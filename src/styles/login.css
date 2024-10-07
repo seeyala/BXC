@@ -33,7 +33,7 @@ body {
 /* Left Side: Image */
 .image-side {
   width: var(--image-width); /* Set width using CSS variable */
-  background-image: url('../images/BackGround.jpg'); /* Path to your image */
+  background-image: url('../app/images/BackGround.jpg'); /* Path to your image */
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the image */
 }

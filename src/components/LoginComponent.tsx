@@ -1,7 +1,7 @@
 "use client"; // Mark this file as a Client Component
 import '../styles/login.css';
 import Image from 'next/image';
-import LogoPlaceholder from '../images/icons/LogoPlaceholder.png';
+import LogoPlaceholder from '../app/images/icons/LogoPlaceholder.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
