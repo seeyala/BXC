@@ -5,8 +5,8 @@
 
 /* CSS Variables for Column Widths */
 :root {
-  --image-width: 65%; /* Width of the image column */
-  --login-width: 40%; /* Width of the login form column */
+  --image-width: clamp(50%, 65vw, 75%); /* Image width scales between 50% and 75% */
+  --login-width: clamp(25%, 35vw, 40%); /* Login width scales between 25% and 40% */
 }
 
 /* Reset and Base Styles */
@@ -25,15 +25,17 @@ body {
 /* Container for the entire login page */
 .login-page {
   display: flex; /* Create a flex container */
+  flex-direction: row; /* Row layout for desktop */
   height: 100vh; /* Full viewport height */
   width: 100%;
   overflow: hidden; /* Prevent scroll due to child elements */
+  justify-content: center; /* Horizontally center the flex items */
 }
 
 /* Left Side: Image */
 .image-side {
   width: var(--image-width); /* Set width using CSS variable */
-  background-image: url('../app/images/BackGround.jpg'); /* Path to your image */
+  background-image: url('../app/images/coffee-background2.jpg'); /* Path to your image */
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the image */
 }
@@ -48,7 +50,7 @@ body {
   padding: 30px;
   text-align: center;
   border-left: 1px solid rgba(255, 255, 255, 0); /* Optional: Divider between columns */
-  background-color: #003e8f; /* Semi-transparent background for contrast */
+  background-color: #A9A9A9; /* Semi-transparent background for contrast */
   color: #fff; /* Text color */
 }
 
@@ -58,7 +60,7 @@ body {
   left: 20px; /* Horizontal position */
   display: flex; /* Use flexbox for layout */
   align-items: center; /* Center items vertically */
-  color: #fff; /* Text color */
+  color: #000000; /* Text color */
   font-size: 16px; /* Title font size */
 }
 
@@ -66,7 +68,7 @@ body {
   width: 30px; /* Adjust the width of the placeholder image */
   height: auto; /* Maintain the aspect ratio */
   margin-right: 10px; /* Space between the image and title text */
-  filter: brightness(0) invert(1); /* Change image to white */
+  filter: brightness(0) invert(0); /* Change image to white */
 }
 
 .title h1 {
@@ -141,7 +143,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 25px 0 35px 0;
+  margin: 1px 0 35px 0;
   color: #fff;
 }
 
@@ -203,7 +205,7 @@ button:hover {
   .wrapper {
     border-left: none; /* Remove divider */
     padding: 25px;
-    background-color: rgba(0, 0, 0, 0.6); /* Adjust background for better visibility */
+    background-color: #003e8f; /* Adjust background for better visibility */
   }
 
   h2 {
