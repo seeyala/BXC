@@ -3,11 +3,11 @@ import '../styles/global.css';
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
-  FaBars, FaSearch, FaUser, FaCog, FaSignOutAlt,  FaUserCircle, 
+  FaBars, FaUser, FaCog, FaSignOutAlt,  FaUserCircle, 
   FaChartBar, FaEnvelope, FaClipboard, FaChevronDown
 } from "react-icons/fa";
 import { AiOutlineStock } from "react-icons/ai";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { MdOutlineRestaurantMenu, MdOutlineClose } from "react-icons/md";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +17,7 @@ const Header = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
+  const [navbar, setNavbar] = useState(false);
 
   const menuItems = [
     { icon: <FaUserCircle />, label: "User", subItems: [] },
@@ -39,10 +40,10 @@ const Header = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Side Menu */}
       <nav
-        className={`bg-gray-800 text-white w-64 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto`}
+        className={`bg-[#6f4e37] text-white w-64 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
       >
-        <div className="p-5">
-          <div className="flex flex-col items-center justify-center mb-5">
+        <div className="p-5 flex-grow">
+          <div className="flex items-center mb-5">
             <Image
               src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9"
               alt="Logo"
@@ -50,13 +51,13 @@ const Header = () => {
               height={40}
               className="h-8 w-auto"
             />
-            <h2 className="text-2xl font-semibold mt-2">LOGO</h2>
+            <h2 className="text-2xl font-semibold ml-3">Name</h2>
           </div>
           <ul>
             {menuItems.map((item, index) => (
-              <li key={index} className="mb-4">
+              <li key={index} className="mb-2">
                 <button
-                  className="flex items-center w-full text-left hover:bg-gray-700 p-2 rounded transition-colors duration-200"
+                  className="flex items-center w-full text-left hover:bg-gray-700 p-2 rounded transition-colors duration-200 text-lg"
                   aria-haspopup={item.subItems.length > 0}
                   aria-expanded={item.subItems.length > 0}
                 >
@@ -79,57 +80,10 @@ const Header = () => {
             ))}
           </ul>
         </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <header className="bg-white shadow-md p-4 flex items-center justify-between fixed top-0 left-0 right-0 z-20">
-          <div className="flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="text-gray-600 focus:outline-none focus:text-gray-800 lg:hidden"
-              aria-label="Toggle menu"
-            >
-              <FaBars size={24} />
-            </button>
-            <Image
-              src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="h-8 w-auto ml-4"
-            />
-          </div>
-
-          <div className="relative mx-4 flex-grow max-w-xs md:max-w-xl"> 
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-2 py-1 rounded-full border focus:outline-none focus:ring-2 focus:ring-blue-300 text-sm" 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Search"
-          />
-          <FaSearch className="absolute right-2 top-1.5 text-gray-400" />
-          {autocompleteResults.length > 0 && (
-            <ul className="absolute z-10 bg-white border rounded-md w-full mt-1 shadow-lg">
-              {autocompleteResults.map((result, index) => (
-                <li
-                  key={index}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    setSearchQuery(result);
-                    setAutocompleteResults([]);
-                  }}
-                >
-                  {result}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-          <div className="relative">
+        
+        {/* Profile and Logout*/}
+        <div className="p-1">
+          <div className="flex items-center justify-between w-full">
             <button
               onClick={toggleProfile}
               className="flex items-center focus:outline-none"
@@ -144,26 +98,29 @@ const Header = () => {
                 height={32}
                 className="h-8 w-8 rounded-full object-cover"
               />
-              <span className="ml-2 text-gray-700">User</span>
-              <FaChevronDown className="ml-2 text-gray-600" />
+              <span className="block px-4 py-2 text text-white">User</span>
             </button>
-
-            {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  <FaUser className="inline-block mr-2" /> Profile
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  <FaCog className="inline-block mr-2" /> Settings
-                </a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  <FaSignOutAlt className="inline-block mr-2" /> Logout
-                </a>
-              </div>
-            )}
+            <a href="#" className="block px-4 py-2 text text-white ml-4">
+              <FaSignOutAlt className="inline-block mr-2" />
+            </a>
           </div>
-        </header>
-      </div>
+        </div>
+      </nav>
+      <div className="md:hidden ml-auto">
+                <button
+                  onClick={toggleMenu}
+                  className="p-2 text-gray-700 rounded-md outline-none"
+                  aria-label="Toggle menu"
+                >
+                  {navbar ? (
+                     <MdOutlineClose size={24} />
+                  ) : (
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-400 hover:border-gray-600 transition-colors duration-200">
+                    <FaBars size={24} />
+                  </div>
+                  )}
+                </button>
+        </div>
     </div>
   );
 };
