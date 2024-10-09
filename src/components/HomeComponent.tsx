@@ -1,23 +1,21 @@
 "use client";
-import '../styles/global.css';
-import { useState, useEffect } from "react";
+import { SetStateAction, useState } from "react";
 import Image from "next/image";
 import {
-  FaBars, FaUser, FaCog, FaSignOutAlt,  FaUserCircle, 
-  FaChartBar, FaEnvelope, FaClipboard, FaChevronDown
+  FaBars, FaUserCircle, FaSignOutAlt,
+  FaClipboard, FaChevronDown, FaTimes,
 } from "react-icons/fa";
 import { AiOutlineStock } from "react-icons/ai";
-import { MdOutlineRestaurantMenu, MdOutlineClose } from "react-icons/md";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
+import AdminTable from './AdminTable';
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Home = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [autocompleteResults, setAutocompleteResults] = useState([]);
+  const [activeMenu, setActiveMenu] = useState<string>(""); 
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
-  const [navbar, setNavbar] = useState(false);
 
   const menuItems = [
     { icon: <FaUserCircle />, label: "User", subItems: [] },
@@ -26,15 +24,10 @@ const Header = () => {
     { icon: <FaClipboard />, label: "Warehouse", subItems: [] },
   ];
 
-  useEffect(() => {
-    if (searchQuery.length > 2) {
-      const results = ["User", "Menu", "Revenue", "Warehouse"]
-        .filter(item => item.toLowerCase().includes(searchQuery.toLowerCase()));
-      setAutocompleteResults(results);
-    } else {
-      setAutocompleteResults([]);
-    }
-  }, [searchQuery]);
+  const handleMenuClick = (label: SetStateAction<string>) => {
+    setActiveMenu(label); 
+    setIsMenuOpen(true); 
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -42,7 +35,7 @@ const Header = () => {
       <nav
         className={`bg-[#6f4e37] text-white w-64 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
       >
-        <div className="p-5 flex-grow">
+        <div className="p-5 flex-grow relative">
           <div className="flex items-center mb-5">
             <Image
               src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9"
@@ -53,11 +46,19 @@ const Header = () => {
             />
             <h2 className="text-2xl font-semibold ml-3">Name</h2>
           </div>
+          <button
+            onClick={toggleMenu}
+            className="absolute top-5 right-5 lg:hidden"
+            aria-label="Close menu"
+          >
+            <FaTimes className="text-white text-2xl" />
+          </button>
           <ul>
             {menuItems.map((item, index) => (
               <li key={index} className="mb-2">
                 <button
-                  className="flex items-center w-full text-left hover:bg-gray-700 p-2 rounded transition-colors duration-200 text-lg"
+                  onClick={() => handleMenuClick(item.label)}
+                  className={`flex items-center w-full text-left p-2 rounded transition-colors duration-200 text-lg ${activeMenu === item.label ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
                   aria-haspopup={item.subItems.length > 0}
                   aria-expanded={item.subItems.length > 0}
                 >
@@ -80,8 +81,8 @@ const Header = () => {
             ))}
           </ul>
         </div>
-        
-        {/* Profile and Logout*/}
+
+        {/* Profile and Logout */}
         <div className="p-1">
           <div className="flex items-center justify-between w-full">
             <button
@@ -106,23 +107,32 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      {/*Toggle Menu */}
       <div className="md:hidden ml-auto">
                 <button
                   onClick={toggleMenu}
                   className="p-2 text-gray-700 rounded-md outline-none"
                   aria-label="Toggle menu"
                 >
-                  {navbar ? (
-                     <MdOutlineClose size={24} />
-                  ) : (
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-400 hover:border-gray-600 transition-colors duration-200">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-400 hover:border-gray-600 transition-colors duration-200">
                     <FaBars size={24} />
                   </div>
-                  )}
+
                 </button>
         </div>
+        <div className="flex flex-col flex-grow">
+        {/* Header */}
+        <header className="p-4 w-full text-left">
+          <h1 className="text-xl font-bold">Welcome to BXC</h1>
+        </header>
+
+        {/* Admin Table */}
+        <div className="flex-grow flex justify-left p-8">
+          {activeMenu === "User" && <AdminTable />} 
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Header;
+export default Home;
