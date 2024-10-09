@@ -1,14 +1,15 @@
 "use client";
-import Header from '../../components/HeaderComponent';
+import Home from '../../components/HomeComponent';
+import AdminTable from '../../components/AdminTable';
 
 const HomePage = () => {
     return (
       <div>
         <header>
-            <Header />
+            <Home />
         </header>
         <main>
-            
+
         </main>
       </div>
     );
