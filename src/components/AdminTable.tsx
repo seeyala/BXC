@@ -1,30 +1,61 @@
 "use client";
 import '../styles/global.css';
 import '../styles/mobile.css';
-import React from 'react';
+import React, { useState } from 'react';
 
 const AdminTable = () => {
-  const data = [
+  const initialData = [
     { no: 1, store: "Store 1", username: "user1", password: "pass1", role: "Admin" },
     { no: 2, store: "Store 2", username: "user2", password: "pass2", role: "User" },
     { no: 3, store: "Store 3", username: "user3", password: "pass3", role: "Manager" },
   ];
 
+  const [data, setData] = useState(initialData);
+  const [filter, setFilter] = useState("");
+
+  const handleFilterChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setFilter(e.target.value);
+  };
+
+  const filteredData = data.filter(item =>
+    item.store.toLowerCase().includes(filter.toLowerCase()) ||
+    item.username.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const handleCreate = () => {
+    alert("Create new entry!");
+  };
+
   return (
     <div className="p-6 overflow-x-auto">
+      <div className="flex justify-between mb-4">
+        <input
+          type="text"
+          placeholder="Filter by store or username"
+          value={filter}
+          onChange={handleFilterChange}
+          className="p-2 border border-gray-300 rounded"
+        />
+        <button
+          onClick={handleCreate}
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+        >
+          Create
+        </button>
+      </div>
       <table className="max-w-full table-auto w-full">
         <thead>
           <tr className="bg-gray-300">
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">No.</th>
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">Store</th>
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">Username</th>
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">Password</th>
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">Role</th>
-            <th className="text-left text-sm font-semibold text-gray-700 w-[200px]">Actions</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">No.</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">Store</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">Username</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">Password</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">Role</th>
+            <th className="text-left text-sm font-semibold text-gray-700 w-[180px]">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {filteredData.map((item, index) => (
             <tr key={index} className="border-t">
               <td className="px-4 py-2 border">{item.no}</td>
               <td className="px-4 py-2 border">{item.store}</td>
