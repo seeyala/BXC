@@ -8,6 +8,7 @@ import {
 import { AiOutlineStock } from "react-icons/ai";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import AdminTable from './AdminTable';
+import MenuItem from './MenuItem';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -33,7 +34,7 @@ const Home = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Side Menu */}
       <nav
-        className={`bg-[#6f4e37] text-white w-64 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
+        className={`bg-[#6f4e37] text-white w-65 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
       >
         <div className="p-5 flex-grow relative">
           <div className="flex items-center mb-5">
@@ -127,8 +128,13 @@ const Home = () => {
         </header>
 
         {/* Admin Table */}
-        <div className="flex-grow flex justify-left p-8">
+        <div className="">
           {activeMenu === "User" && <AdminTable />} 
+        </div>
+
+         {/* Menu Item */}
+         <div className="">
+          {activeMenu === "Menu" && <MenuItem />} 
         </div>
       </div>
     </div>
