@@ -89,16 +89,16 @@ const AdminTable = () => {
   return (
     <div className="p-6">
       {/* Create and Filter Buttons */}
-      <div className="flex justify-between mb-6">
-        <div className="flex space-x-4">
-          {/* Create Button */}
-          <button 
-            className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
-            onClick={handleCreate}
-          >
-            <FaPlusCircle className="mr-2" /> Create
-          </button>
-
+      <div className="flex space-x-4 mb-4"> {/* Use flex layout for buttons */}
+        {/* Create Button */}
+        <button 
+          className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+          onClick={handleCreate}
+        >
+          <FaPlusCircle className="mr-2" /> Create
+        </button>
+  
+        <div className="relative"> {/* Container for the filter dropdown */}
           {/* Filter Button */}
           <button 
             className="flex items-center bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
@@ -106,99 +106,92 @@ const AdminTable = () => {
           >
             <TbAdjustmentsHorizontal className="mr-2" /> Filter
           </button>
-        </div>
-      </div>
-
-      {/* Filter Dropdown */}
-      {filterVisible && (
-        <div className="bg-gray-200 p-4 rounded shadow-lg mb-4">
-          <p className="font-semibold mb-2">Filter by:</p>
-          <div className="flex flex-col space-y-2">
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-              onClick={() => setFilterType("username")}
-            >
-              Username (A-Z)
-            </button>
-            <div className="flex flex-col">
+  
+          {/* Filter Dropdown */}
+          {filterVisible && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"> {/* Dropdown styling */}
+              <p className="px-4 py-2 font-semibold text-gray-600">Filter by:</p>
+  
               <button 
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
-                onClick={() => setFilterType("store")}
+                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
+                onClick={() => setFilterType("username")}
               >
-                Store
+                Username (A-Z)
               </button>
-              {filterType === "store" && (
-                <div className="ml-4 mt-2 space-y-1">
+  
+              <div className="border-t my-1"></div>
+  
+              <div className="px-4 py-2 text-sm">
+                <span className="font-semibold">Store</span>
+                <div className="mt-1 space-y-1">
                   <button 
-                    className={`px-4 py-2 rounded ${selectedStore === "Store 1" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedStore === "Store 1" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedStore("Store 1")}
                   >
                     Store 1
                   </button>
                   <button 
-                    className={`px-4 py-2 rounded ${selectedStore === "Store 2" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedStore === "Store 2" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedStore("Store 2")}
                   >
                     Store 2
                   </button>
                   <button 
-                    className={`px-4 py-2 rounded ${selectedStore === "Store 3" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedStore === "Store 3" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedStore("Store 3")}
                   >
                     Store 3
                   </button>
                 </div>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <button 
-                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
-                onClick={() => setFilterType("role")}
-              >
-                Role
-              </button>
-              {filterType === "role" && (
-                <div className="ml-4 mt-2 space-y-1">
+              </div>
+  
+              <div className="border-t my-1"></div>
+  
+              <div className="px-4 py-2 text-sm">
+                <span className="font-semibold">Role</span>
+                <div className="mt-1 space-y-1">
                   <button 
-                    className={`px-4 py-2 rounded ${selectedRole === "Admin" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedRole === "Admin" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedRole("Admin")}
                   >
                     Admin
                   </button>
                   <button 
-                    className={`px-4 py-2 rounded ${selectedRole === "Manager" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedRole === "Manager" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedRole("Manager")}
                   >
                     Manager
                   </button>
                   <button 
-                    className={`px-4 py-2 rounded ${selectedRole === "User" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    className={`block w-full text-left px-2 py-1 rounded ${selectedRole === "User" ? 'bg-gray-100' : ''} hover:bg-gray-100 transition`} 
                     onClick={() => setSelectedRole("User")}
                   >
                     User
                   </button>
                 </div>
-              )}
+              </div>
+  
+              <div className="border-t my-1"></div>
+  
+              <div className="px-4 py-2 flex justify-between">
+                <button 
+                  className="text-blue-600 hover:underline"
+                  onClick={applyFilter}
+                >
+                  Apply
+                </button>
+                <button 
+                  className="text-red-600 hover:underline"
+                  onClick={resetFilter}
+                >
+                  Reset
+                </button>
+              </div>
             </div>
-          </div>
-
-          {/* Apply and Reset Filter Buttons */}
-          <div className="mt-4">
-            <button 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition mr-2"
-              onClick={applyFilter}
-            >
-              Apply Filter
-            </button>
-            <button 
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-              onClick={resetFilter}
-            >
-              Reset Filter
-            </button>
-          </div>
+          )}
         </div>
-      )}
+      </div>
+  
 
       {/* Table */}
       <table className="min-w-full table-auto border border-gray-300">
