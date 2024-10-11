@@ -6,7 +6,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white rounded shadow-lg p-6 w-96">
-        <h2 className="text-lg font-semibold mb-4">Add New Entry</h2>
+        <h2 className="text-lg font-semibold mb-4">New Entry</h2>
         <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2" htmlFor="username">

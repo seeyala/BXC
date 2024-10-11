@@ -8,39 +8,63 @@ import Modal from './Modal'; // Ensure to import your Modal component
 
 const AdminTable = () => {
   const initialData = [
-    { no: 1, store: "Store 1", username: "user1", password: "pass1password", role: "Admin" },
-    { no: 2, store: "Store 2", username: "user2", password: "pass2", role: "User" },
-    { no: 3, store: "Store 3", username: "user3", password: "pass3", role: "Manager" },
+    { no: 1, store: "Store 1", username: "A", password: "pass1password", role: "Admin" },
+    { no: 2, store: "Store 2", username: "B", password: "pass2", role: "User" },
+    { no: 3, store: "Store 3", username: "C", password: "pass3", role: "Manager" },
+    { no: 4, store: "Store 1", username: "A", password: "pass1password", role: "Admin" },
+    { no: 5, store: "Store 2", username: "B", password: "pass2", role: "User" },
+    { no: 6, store: "Store 3", username: "C", password: "pass3", role: "Manager" },
   ];
 
   const [data, setData] = useState(initialData);
-  const [filter, setFilter] = useState("");
+  const [filteredData, setFilteredData] = useState(initialData);
+  const [filterVisible, setFilterVisible] = useState(false); // To toggle filter dropdown visibility
+  const [filterType, setFilterType] = useState(""); // Track the selected filter type
+  const [selectedStore, setSelectedStore] = useState(""); // For filtering by store
+  const [selectedRole, setSelectedRole] = useState(""); // For filtering by role
   const [passwordVisibility, setPasswordVisibility] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEntry, setNewEntry] = useState({ username: '', password: '', store: 'Store 1', role: 'User' });
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+  // Toggle filter dropdown visibility
+  const toggleFilterDropdown = () => {
+    setFilterVisible(!filterVisible);
   };
 
-  const filteredData = data.filter(item =>
-    item.store.toLowerCase().includes(filter.toLowerCase()) ||
-    item.username.toLowerCase().includes(filter.toLowerCase())
-  );
+  // Apply filter logic based on the selected filter type and value
+  const applyFilter = () => {
+    let filtered = [...data];
+    if (filterType === "username") {
+      filtered.sort((a, b) => a.username.localeCompare(b.username));
+    } else if (filterType === "store") {
+      filtered = filtered.filter(item => item.store === selectedStore);
+    } else if (filterType === "role") {
+      filtered = filtered.filter(item => item.role === selectedRole);
+    }
+    setFilteredData(filtered);
+  };
+
+  // Reset filters to original data
+  const resetFilter = () => {
+    setFilteredData(initialData);
+    setFilterType(""); // Clear filter type
+    setSelectedStore(""); // Clear selected store
+    setSelectedRole(""); // Clear selected role
+  };
 
   const handleCreate = () => {
-    setIsModalOpen(true); // Open the modal
+    setIsModalOpen(true);
   };
 
   const togglePasswordVisibility = (no) => {
     setPasswordVisibility(prevState => ({
       ...prevState,
-      [no]: !prevState[no]  // Toggle the visibility of the password for the row
+      [no]: !prevState[no]
     }));
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
 
   const handleInputChange = (e) => {
@@ -55,11 +79,11 @@ const AdminTable = () => {
     e.preventDefault();
     const newData = {
       no: data.length + 1,
-      ...newEntry // Spread the new entry data
+      ...newEntry
     };
-    setData([...data, newData]); // Update the data state with the new entry
-    setNewEntry({ username: '', password: '', store: 'Store 1', role: 'User' }); // Reset form
-    handleModalClose(); // Close the modal
+    setData([...data, newData]);
+    setNewEntry({ username: '', password: '', store: 'Store 1', role: 'User' });
+    handleModalClose();
   };
 
   return (
@@ -75,15 +99,106 @@ const AdminTable = () => {
             <FaPlusCircle className="mr-2" /> Create
           </button>
 
-          {/* Filter Button (Currently a placeholder) */}
+          {/* Filter Button */}
           <button 
             className="flex items-center bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
-            onClick={handleFilterChange}
+            onClick={toggleFilterDropdown}
           >
             <TbAdjustmentsHorizontal className="mr-2" /> Filter
           </button>
         </div>
       </div>
+
+      {/* Filter Dropdown */}
+      {filterVisible && (
+        <div className="bg-gray-200 p-4 rounded shadow-lg mb-4">
+          <p className="font-semibold mb-2">Filter by:</p>
+          <div className="flex flex-col space-y-2">
+            <button 
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              onClick={() => setFilterType("username")}
+            >
+              Username (A-Z)
+            </button>
+            <div className="flex flex-col">
+              <button 
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                onClick={() => setFilterType("store")}
+              >
+                Store
+              </button>
+              {filterType === "store" && (
+                <div className="ml-4 mt-2 space-y-1">
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedStore === "Store 1" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedStore("Store 1")}
+                  >
+                    Store 1
+                  </button>
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedStore === "Store 2" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedStore("Store 2")}
+                  >
+                    Store 2
+                  </button>
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedStore === "Store 3" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedStore("Store 3")}
+                  >
+                    Store 3
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col">
+              <button 
+                className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+                onClick={() => setFilterType("role")}
+              >
+                Role
+              </button>
+              {filterType === "role" && (
+                <div className="ml-4 mt-2 space-y-1">
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedRole === "Admin" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedRole("Admin")}
+                  >
+                    Admin
+                  </button>
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedRole === "Manager" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedRole("Manager")}
+                  >
+                    Manager
+                  </button>
+                  <button 
+                    className={`px-4 py-2 rounded ${selectedRole === "User" ? 'bg-gray-300' : 'bg-white'} hover:bg-gray-300 transition`} 
+                    onClick={() => setSelectedRole("User")}
+                  >
+                    User
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Apply and Reset Filter Buttons */}
+          <div className="mt-4">
+            <button 
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition mr-2"
+              onClick={applyFilter}
+            >
+              Apply Filter
+            </button>
+            <button 
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+              onClick={resetFilter}
+            >
+              Reset Filter
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Table */}
       <table className="min-w-full table-auto border border-gray-300">
@@ -110,19 +225,19 @@ const AdminTable = () => {
                     className="truncate"
                     style={{
                       display: 'inline-block',
-                      maxWidth: 'calc(100% - 2.5rem)', // Adjust for the button's width
-                      minWidth: '20ch', // Minimum width to accommodate 20 characters
-                      overflow: 'hidden', // Hide overflow text
-                      whiteSpace: 'nowrap', // Prevent line breaks
+                      maxWidth: 'calc(100% - 2.5rem)', 
+                      minWidth: '20ch',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
                     }}
-                    title={passwordVisibility[item.no] ? item.password : '*****'} // Tooltip for full password visibility
+                    title={passwordVisibility[item.no] ? item.password : '*****'} 
                   >
                     {passwordVisibility[item.no] ? item.password : '*****'}
                   </span>
                   <button 
                     onClick={() => togglePasswordVisibility(item.no)} 
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 transition hover:bg-gray-200 rounded-full" 
-                    aria-label="Toggle password visibility" // Accessibility improvement
+                    aria-label="Toggle password visibility"
                   >
                     {passwordVisibility[item.no] ? (
                       <FaEyeSlash className="text-gray-700" />
@@ -153,7 +268,7 @@ const AdminTable = () => {
         onClose={handleModalClose} 
         onSubmit={handleFormSubmit} 
         handleInputChange={handleInputChange}
-        newEntry={newEntry} // Pass the new entry state to the Modal
+        newEntry={newEntry} 
       />
     </div>
   );
