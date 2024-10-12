@@ -86,7 +86,7 @@ const Home = () => {
         </div>
 
         {/* Profile and Logout */}
-        <div className="p-1">
+        <div className="p-1 mt-2 ml-6">
           <div className="flex items-center justify-between w-full">
             <button
               onClick={toggleProfile}
@@ -98,8 +98,8 @@ const Home = () => {
               <Image
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
                 alt="User"
-                width={32}
-                height={32}
+                width={50}
+                height={50}
                 className="h-8 w-8 rounded-full object-cover"
               />
               <span className="block px-4 py-2 text text-white">User</span>
