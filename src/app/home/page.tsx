@@ -1,6 +1,5 @@
 "use client";
 import Home from '../../components/HomeComponent';
-import AdminTable from '../../components/AdminTable';
 
 const HomePage = () => {
     return (

@@ -4,7 +4,7 @@ import '../styles/mobile.css';
 import React, { useState } from 'react';
 import { FaPlusCircle, FaEdit, FaTrash, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
-import Modal from './Modal'; // Ensure to import your Modal component
+import Modal from './Modal';
 
 const AdminTable = () => {
   const initialData = [
@@ -18,10 +18,10 @@ const AdminTable = () => {
 
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
-  const [filterVisible, setFilterVisible] = useState(false); // To toggle filter dropdown visibility
-  const [filterType, setFilterType] = useState(""); // Track the selected filter type
-  const [selectedStore, setSelectedStore] = useState(""); // For filtering by store
-  const [selectedRole, setSelectedRole] = useState(""); // For filtering by role
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [filterType, setFilterType] = useState("");
+  const [selectedStore, setSelectedStore] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEntry, setNewEntry] = useState({ username: '', password: '', store: 'Store 1', role: 'User' });
@@ -47,9 +47,9 @@ const AdminTable = () => {
   // Reset filters to original data
   const resetFilter = () => {
     setFilteredData(initialData);
-    setFilterType(""); // Clear filter type
-    setSelectedStore(""); // Clear selected store
-    setSelectedRole(""); // Clear selected role
+    setFilterType(""); 
+    setSelectedStore(""); 
+    setSelectedRole(""); 
   };
 
   const handleCreate = () => {
@@ -89,7 +89,7 @@ const AdminTable = () => {
   return (
     <div className="p-6">
       {/* Create and Filter Buttons */}
-      <div className="flex space-x-4 mb-4"> {/* Use flex layout for buttons */}
+      <div className="flex space-x-4 mb-4"> 
         {/* Create Button */}
         <button 
           className="flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
@@ -98,7 +98,7 @@ const AdminTable = () => {
           <FaPlusCircle className="mr-2" /> Create
         </button>
   
-        <div className="relative"> {/* Container for the filter dropdown */}
+        <div className="relative"> 
           {/* Filter Button */}
           <button 
             className="flex items-center bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"

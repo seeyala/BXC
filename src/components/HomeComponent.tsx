@@ -9,6 +9,7 @@ import { AiOutlineStock } from "react-icons/ai";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import AdminTable from './AdminTable';
 import MenuItem from './MenuItem';
+import bxcLogo from '../app/images/bxc.png';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -19,10 +20,10 @@ const Home = () => {
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
 
   const menuItems = [
-    { icon: <FaUserCircle />, label: "User", subItems: [] },
-    { icon: <MdOutlineRestaurantMenu />, label: "Menu", subItems: [] },
-    { icon: <AiOutlineStock />, label: "Revenue", subItems: [] },
-    { icon: <FaClipboard />, label: "Warehouse", subItems: [] },
+    { icon: <FaUserCircle size={30} />, label: "User", subItems: [] },
+    { icon: <MdOutlineRestaurantMenu size={30} />, label: "Menu", subItems: [] },
+    { icon: <AiOutlineStock size={30} />, label: "Revenue", subItems: [] },
+    { icon: <FaClipboard size={30} />, label: "Warehouse", subItems: [] },
   ];
 
   const handleMenuClick = (label: SetStateAction<string>) => {
@@ -34,18 +35,17 @@ const Home = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Side Menu */}
       <nav
-        className={`bg-[#6f4e37] text-white w-65 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
+        className={`bg-gradient-to-b from-purple-700 to-blue-700 text-white w-65 min-h-screen ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transform transition-transform duration-300 ease-in-out fixed top-0 left-0 z-30 lg:translate-x-0 lg:static lg:h-auto flex flex-col`}
       >
         <div className="p-5 flex-grow relative">
-          <div className="flex items-center mb-5">
+          <div className="flex items-center justify-center mb-5">
             <Image
-              src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9"
+              src={bxcLogo}
               alt="Logo"
-              width={40}
-              height={40}
-              className="h-8 w-auto"
+              width={250}
+              height={250}
+              className="w-24 h-24 rounded-full object-cover"
             />
-            <h2 className="text-2xl font-semibold ml-3">Name</h2>
           </div>
           <button
             onClick={toggleMenu}
@@ -59,12 +59,14 @@ const Home = () => {
               <li key={index} className="mb-2">
                 <button
                   onClick={() => handleMenuClick(item.label)}
-                  className={`flex items-center w-full text-left p-2 rounded transition-colors duration-200 text-lg ${activeMenu === item.label ? 'bg-gray-700' : 'hover:bg-gray-700'}`}
+                  className={`flex flex-col items-center justify-center w-full text-center p-4 rounded transition-transform duration-200 text-lg bg-transparent hover:bg-blue-600 ${
+                    activeMenu === item.label ? 'bg-purple-700' : ''
+                  } active:translate-y-1 active:bg-purple-800`}
                   aria-haspopup={item.subItems.length > 0}
                   aria-expanded={item.subItems.length > 0}
                 >
                   {item.icon}
-                  <span className="ml-3">{item.label}</span>
+                  <span className="mt-2">{item.label}</span>
                   {item.subItems.length > 0 && <FaChevronDown className="ml-auto" />}
                 </button>
                 {item.subItems.length > 0 && (
@@ -84,7 +86,7 @@ const Home = () => {
         </div>
 
         {/* Profile and Logout */}
-        <div className="p-1">
+        <div className="p-1 mt-2 ml-6">
           <div className="flex items-center justify-between w-full">
             <button
               onClick={toggleProfile}
@@ -96,8 +98,8 @@ const Home = () => {
               <Image
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
                 alt="User"
-                width={32}
-                height={32}
+                width={50}
+                height={50}
                 className="h-8 w-8 rounded-full object-cover"
               />
               <span className="block px-4 py-2 text text-white">User</span>
@@ -127,12 +129,12 @@ const Home = () => {
           <h1 className="text-xl font-bold">Welcome to BXC</h1>
         </header>
 
-        {/* Admin Table */}
+        {/* User */}
         <div className="">
           {activeMenu === "User" && <AdminTable />} 
         </div>
 
-         {/* Menu Item */}
+         {/* Menu */}
          <div className="">
           {activeMenu === "Menu" && <MenuItem />} 
         </div>
