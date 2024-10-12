@@ -127,12 +127,12 @@ const Home = () => {
           <h1 className="text-xl font-bold">Welcome to BXC</h1>
         </header>
 
-        {/* Admin Table */}
+        {/* User */}
         <div className="">
           {activeMenu === "User" && <AdminTable />} 
         </div>
 
-         {/* Menu Item */}
+         {/* Menu */}
          <div className="">
           {activeMenu === "Menu" && <MenuItem />} 
         </div>
