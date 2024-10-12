@@ -8,12 +8,13 @@ import Modal from './Modal';
 
 const AdminTable = () => {
   const initialData = [
-    { no: 1, store: "Store 1", username: "A", password: "pass1password", role: "Admin" },
-    { no: 2, store: "Store 2", username: "B", password: "pass2", role: "User" },
-    { no: 3, store: "Store 3", username: "C", password: "pass3", role: "Manager" },
-    { no: 4, store: "Store 1", username: "A", password: "pass1password", role: "Admin" },
-    { no: 5, store: "Store 2", username: "B", password: "pass2", role: "User" },
-    { no: 6, store: "Store 3", username: "C", password: "pass3", role: "Manager" },
+    { no: 1, store: "Store 1", username: "BXC PINN", password: "pass1password", role: "Admin" },
+    { no: 2, store: "Store 2", username: "BXC HauPhoMai", password: "pass2", role: "User" },
+    { no: 3, store: "Store 3", username: "BXC NgheuHapThai", password: "pass3", role: "Manager" },
+    { no: 4, store: "Store 1", username: "BXC TomHumAlaska", password: "pass1password", role: "Manager" },
+    { no: 5, store: "Store 2", username: "BXC CaHapXa", password: "pass2", role: "User" },
+    { no: 6, store: "Store 3", username: "Mata", password: "pass3", role: "Admin" },
+    { no: 7, store: "Store 1", username: "Hyde", password: "pass3", role: "User" },
   ];
 
   const [data, setData] = useState(initialData);
@@ -193,67 +194,67 @@ const AdminTable = () => {
       </div>
   
 
-      {/* Table */}
-      <table className="min-w-full table-auto border border-gray-300">
-        <thead>
-          <tr className="bg-gray-300">
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">No.</th>
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">Store</th>
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">Username</th>
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">Password</th>
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">Role</th>
-            <th className="text-left text-sm font-semibold text-gray-700 py-2 px-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item, index) => (
-            <tr key={index} className="border-t">
-              <td className="px-4 py-2 border">{item.no}</td>
-              <td className="px-4 py-2 border">{item.store}</td>
-              <td className="px-4 py-2 border">{item.username}</td>
-              {/* Password Box */}
-              <td className="px-4 py-2 border relative min-w-[60px] max-w-[100px]">
-                <div className="relative flex items-center">
-                  <span
-                    className="truncate"
-                    style={{
-                      display: 'inline-block',
-                      maxWidth: 'calc(100% - 2.5rem)', 
-                      minWidth: '20ch',
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                    }}
-                    title={passwordVisibility[item.no] ? item.password : '*****'} 
-                  >
-                    {passwordVisibility[item.no] ? item.password : '*****'}
-                  </span>
-                  <button 
-                    onClick={() => togglePasswordVisibility(item.no)} 
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 transition hover:bg-gray-200 rounded-full" 
-                    aria-label="Toggle password visibility"
-                  >
-                    {passwordVisibility[item.no] ? (
-                      <FaEyeSlash className="text-gray-700" />
-                    ) : (
-                      <FaEye className="text-gray-700" />
-                    )}
-                  </button>
-                </div>
-              </td>
-              <td className="px-4 py-2 border">{item.role}</td>
-              {/* Actions */}
-              <td className="px-4 py-2 border flex justify-center items-center">
-                <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition" aria-label="Edit">
-                  <FaEdit />
-                </button>
-                <button className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition ml-2" aria-label="Delete">
-                  <FaTrash />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+     {/* Borderless Table with Centered Headers and Left-aligned Content */}
+<table className="min-w-full table-auto shadow-lg rounded-lg">
+  <thead>
+    <tr className="bg-gray-100">
+      <th className="text-center text-sm font-semibold text-gray-700 py-3 px-4 w-12">No.</th>
+      <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Store</th>
+      <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Username</th>
+      <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Password</th>
+      <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Role</th>
+      <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {filteredData.map((item, index) => (
+      <tr key={index} className="hover:bg-gray-50 transition">
+        <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.no}</td>
+        <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.store}</td>
+        <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.username}</td>
+        {/* Password Box */}
+        <td className="px-4 py-2 text-sm text-gray-700 text-left relative min-w-[60px] max-w-[100px]">
+          <div className="relative flex items-center">
+            <span
+              className="truncate"
+              style={{
+                display: 'inline-block',
+                maxWidth: 'calc(100% - 2.5rem)', 
+                minWidth: '20ch',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+              }}
+              title={passwordVisibility[item.no] ? item.password : '***********'}
+            >
+              {passwordVisibility[item.no] ? item.password : '***********'}
+            </span>
+            <button 
+              onClick={() => togglePasswordVisibility(item.no)} 
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-200 rounded-full transition focus:outline-none" 
+              aria-label="Toggle password visibility"
+            >
+              {passwordVisibility[item.no] ? (
+                <FaEyeSlash className="text-gray-700" />
+              ) : (
+                <FaEye className="text-gray-700" />
+              )}
+            </button>
+          </div>
+        </td>
+        <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.role}</td>
+        {/* Actions */}
+        <td className="px-4 py-2 flex justify-center items-center space-x-2">
+          <button className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition focus:outline-none" aria-label="Edit">
+            <FaEdit />
+          </button>
+          <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition focus:outline-none" aria-label="Delete">
+            <FaTrash />
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
       {/* Modal for Adding New Entry */}
       <Modal 
