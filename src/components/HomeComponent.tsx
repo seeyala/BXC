@@ -3,7 +3,7 @@ import { SetStateAction, useState } from "react";
 import Image from "next/image";
 import {
   FaBars, FaUserCircle, FaSignOutAlt,
-  FaClipboard, FaChevronDown, FaTimes,
+  FaClipboard, FaChevronDown, FaTimes,FaCoffee,
 } from "react-icons/fa";
 import { AiOutlineStock } from "react-icons/ai";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
@@ -127,7 +127,9 @@ const Home = () => {
         <div className="flex flex-col flex-grow">
         {/* Header */}
         <header className="p-4 w-full text-left">
-          <h1 className="text-xl font-bold">Welcome to BXC</h1>
+          <h1 className="text-5xl font-bold text-purple-600 tracking-wider underline decoration-dotted flex items-center">Welcome to BXC 
+          <FaCoffee className="ml-4 text-7xl text-brown-600" />
+          </h1>
         </header>
 
         {/* User */}

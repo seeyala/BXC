@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 interface Product {
   id: number;
   name: string;
-  description: string;
   price: number;
   image: string;
   category: 'cafe' | 'cake' | 'combo';
@@ -17,9 +16,8 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <img className="h-32 object-cover" src={product.image} alt={product.name} />
       </div>
       <div className="py-4">
-        <div className="font-bold text-xl mb-2">{product.name}</div>
-        <p className="text-gray-700 text-base">{product.description}</p>
-        <div className="flex justify-between items-center mt-4">
+        <div className="font-bold text-xl">{product.name}</div>
+        <div className="flex justify-between items-center">
           <span className="text-gray-900 font-bold text-xl">{`$${product.price.toFixed(2)}`}</span>
         </div>
       </div>
@@ -32,7 +30,6 @@ const ProductList: React.FC = () => {
     {
       id: 1,
       name: 'Product 1',
-      description: 'This is a description for Product 1.',
       price: 29.99,
       image: 'https://via.placeholder.com/150',
       category: 'cafe',
@@ -40,7 +37,6 @@ const ProductList: React.FC = () => {
     {
       id: 2,
       name: 'Product 2',
-      description: 'This is a description for Product 2.',
       price: 39.99,
       image: 'https://via.placeholder.com/150',
       category: 'cake',
@@ -49,7 +45,6 @@ const ProductList: React.FC = () => {
     {
       id: 3,
       name: 'Product 3',
-      description: 'This is a description for Product 3.',
       price: 19.99,
       image: 'https://via.placeholder.com/150',
       category: 'combo',
@@ -57,7 +52,6 @@ const ProductList: React.FC = () => {
     {
       id: 4,
       name: 'Product 4',
-      description: 'This is a description for Product 4.',
       price: 49.99,
       image: 'https://via.placeholder.com/150',
       category: 'combo',
@@ -65,7 +59,6 @@ const ProductList: React.FC = () => {
     {
       id: 5,
       name: 'Product 5',
-      description: 'This is a description for Product 5.',
       price: 24.99,
       image: 'https://via.placeholder.com/150',
       category: 'cake',
@@ -73,7 +66,6 @@ const ProductList: React.FC = () => {
     {
       id: 6,
       name: 'Product 6',
-      description: 'This is a description for Product 6.',
       price: 34.99,
       image: 'https://via.placeholder.com/150',
       category: 'cafe',
@@ -81,7 +73,6 @@ const ProductList: React.FC = () => {
     {
       id: 7,
       name: 'Product 7',
-      description: 'This is a description for Product 7.',
       price: 44.99,
       image: 'https://via.placeholder.com/150',
       category: 'cake',
@@ -89,7 +80,6 @@ const ProductList: React.FC = () => {
     {
       id: 8,
       name: 'Product 8',
-      description: 'This is a description for Product 8.',
       price: 54.99,
       image: 'https://via.placeholder.com/150',
       category: 'combo',
