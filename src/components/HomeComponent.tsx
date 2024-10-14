@@ -9,6 +9,7 @@ import { AiOutlineStock } from "react-icons/ai";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 import AdminTable from './AdminTable';
 import MenuItem from './MenuItem';
+import Warehouse from './Warehouse';
 import bxcLogo from '../app/images/bxc.png';
 
 const Home = () => {
@@ -137,6 +138,11 @@ const Home = () => {
          {/* Menu */}
          <div className="">
           {activeMenu === "Menu" && <MenuItem />} 
+        </div>
+
+        {/* Warehouse */}
+        <div className="">
+          {activeMenu === "Warehouse" && <Warehouse />} 
         </div>
       </div>
     </div>
