@@ -29,22 +29,22 @@ const WarehouseTable = () => {
     // More products...
   ]);
 
-  const [selectedCafe, setSelectedCafe] = useState('cafe1');
+  const [selectedInventory, setSelectedInventory] = useState('inventory1');
 
   return (
     <div className="p-5">
       <div className="mb-4 flex justify-between items-center">
         {/* Dropdown Button for Cafes */}
         <div>
-          <label className="mr-2 font-semibold">Select Cafe:</label>
+          <label className="mr-2 font-semibold">Select Inventory:</label>
           <select
-            value={selectedCafe}
-            onChange={(e) => setSelectedCafe(e.target.value)}
-            className="border border-gray-300 p-2 rounded"
+            value={selectedInventory}
+            onChange={(e) => setSelectedInventory(e.target.value)}
+            className="border border-gray-300 p-2 rounded "
           >
-            <option value="cafe1">Cafe 1</option>
-            <option value="cafe2">Cafe 2</option>
-            <option value="cafe3">Cafe 3</option>
+            <option value="inventory1">Kitchen 1</option>
+            <option value="inventory2">Kitchen 2</option>
+            <option value="inventory3">Kitchen 3</option>
           </select>
         </div>
         
