@@ -6,97 +6,90 @@ const WarehouseTable = () => {
   const [products, setProducts] = useState([
     {
       id: 1,
-      name: 'A',
-      unit: 'kg',
-      dateReceived: '2023-09-21',
-      quantityReceived: 100,
-      dateIssued: '2023-09-28',
-      quantityIssued: 50,
-      quantityInStock: 50,
-      notes: 'ád',
+      productCode: 'P001',
+      productName: 'Product 1',
+      productUnit: 'kg',
+      importDate: '2024-10-14',
+      quantityImported: 100,
+      exportDate: '2024-10-20',
+      remainingQuantity: 40,
+      notes: 'Regular shipment',
     },
     {
       id: 2,
-      name: 'A',
-      unit: 'kg',
-      dateReceived: '2023-09-21',
-      quantityReceived: 122,
-      dateIssued: '2023-09-28',
-      quantityIssued: 50,
-      quantityInStock: 60,
-      notes: 'ád',
+      productCode: 'P002',
+      productName: 'Product 2',
+      productUnit: 'box',
+      importDate: '2024-10-13',
+      quantityImported: 200,
+      exportDate: '2024-10-19',
+      remainingQuantity: 150,
+      notes: 'Special handling required',
     },
     // More products...
   ]);
 
-  const [selectedCafe, setSelectedCafe] = useState('cafe1');
-
-  const formatDate = (dateString) => {
-    const options = { day: '2-digit', month: 'short' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-  };
+  const [selectedInventory, setSelectedInventory] = useState('inventory1');
 
   return (
-    <div className="p-5">
-      <div className="mb-4 flex justify-between items-center">
-        {/* Dropdown for Cafes */}
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="mb-6 flex justify-between items-center">
+        {/* Dropdown Button for Inventories */}
         <div>
-          <label className="mr-2 font-semibold text-gray-700">Select Cafe:</label>
+          <label className="mr-2 font-semibold text-gray-700">Select Inventory:</label>
           <select
-            value={selectedCafe}
-            onChange={(e) => setSelectedCafe(e.target.value)}
-            className="border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            value={selectedInventory}
+            onChange={(e) => setSelectedInventory(e.target.value)}
+            className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-300 focus:outline-none"
           >
-            <option value="cafe1">Cafe 1</option>
-            <option value="cafe2">Cafe 2</option>
-            <option value="cafe3">Cafe 3</option>
+            <option value="inventory1">Kitchen</option>
+            <option value="inventory2">Bar</option>
           </select>
         </div>
         
-        {/* Export Excel Button */}
+        {/* Export Excel Button with Icon */}
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center shadow-lg"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-200 flex items-center shadow"
         >
-          <FaFileExcel size={24} />
-          <span className="ml-2">Export to Excel</span>
+          <FaFileExcel size={20} className="mr-2" />
+          Export to Excel
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow-md rounded-lg border-collapse">
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="min-w-full text-sm text-gray-800">
           <thead>
-            <tr className="bg-gray-50 text-left text-sm font-semibold text-gray-600 uppercase">
-              <th className="py-3 px-6">No.</th>
-              <th className="py-3 px-6">ID</th>
-              <th className="py-3 px-6">Name</th>
-              <th className="py-3 px-6">Unit</th>
-              <th className="py-3 px-6">Date Received</th>
-              <th className="py-3 px-6">Quantity Received</th>
-              <th className="py-3 px-6">Date Issued</th>
-              <th className="py-3 px-6">Quantity Issued</th>
-              <th className="py-3 px-6">Quantity in Stock</th>
-              <th className="py-3 px-6">Notes</th>
+            <tr className="bg-gray-100 text-left text-sm font-semibold uppercase tracking-wide text-gray-600">
+              <th className="py-3 px-5">No.</th>
+              <th className="py-3 px-5">ID</th>
+              <th className="py-3 px-5">Name</th>
+              <th className="py-3 px-5">Unit</th>
+              <th className="py-3 px-5">Import Date</th>
+              <th className="py-3 px-5">Quantity Imported</th>
+              <th className="py-3 px-5">Export Date</th>
+              <th className="py-3 px-5">Remaining Quantity</th>
+              <th className="py-3 px-5">Notes</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={product.id} className="hover:bg-gray-100 transition duration-150">
-                <td className="py-4 px-6 border-t">{index + 1}</td>
-                <td className="py-4 px-6 border-t">{product.id}</td>
-                <td className="py-4 px-6 border-t">{product.name}</td>
-                <td className="py-4 px-6 border-t">
+              <tr key={product.id} className="hover:bg-gray-50 transition">
+                <td className="py-4 px-5 border-t">{index + 1}</td>
+                <td className="py-4 px-5 border-t">{product.productCode}</td>
+                <td className="py-4 px-5 border-t">{product.productName}</td>
+                <td className="py-4 px-5 border-t">
                   <select
-                    value={product.unit}
+                    value={product.productUnit}
                     onChange={(e) =>
                       setProducts((prevProducts) =>
                         prevProducts.map((p) =>
                           p.id === product.id
-                            ? { ...p, unit: e.target.value }
+                            ? { ...p, productUnit: e.target.value }
                             : p
                         )
                       )
                     }
-                    className="border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:ring-blue-300"
+                    className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
                   >
                     <option value="kg">kg</option>
                     <option value="g">g</option>
@@ -106,12 +99,11 @@ const WarehouseTable = () => {
                     <option value="pack">pack</option>
                   </select>
                 </td>
-                <td className="py-4 px-6 border-t">{formatDate(product.dateReceived)}</td>
-                <td className="py-4 px-6 border-t">{product.quantityReceived}</td>
-                <td className="py-4 px-6 border-t">{formatDate(product.dateIssued)}</td>
-                <td className="py-4 px-6 border-t">{product.quantityIssued}</td>
-                <td className="py-4 px-6 border-t">{product.quantityInStock}</td>
-                <td className="py-4 px-6 border-t">{product.notes}</td>
+                <td className="py-4 px-5 border-t">{product.importDate}</td>
+                <td className="py-4 px-5 border-t">{product.quantityImported}</td>
+                <td className="py-4 px-5 border-t">{product.exportDate}</td>
+                <td className="py-4 px-5 border-t">{product.remainingQuantity}</td>
+                <td className="py-4 px-5 border-t">{product.notes}</td>
               </tr>
             ))}
           </tbody>
