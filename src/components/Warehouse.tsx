@@ -34,50 +34,52 @@ const WarehouseTable = () => {
   return (
     <div className="p-5">
       <div className="mb-4 flex justify-between items-center">
-        {/* Dropdown Button for Cafes */}
-        <div>
-          <label className="mr-2 font-semibold">Select Inventory:</label>
+        <div className="flex items-center">
+          <label htmlFor="inventory-select" className="mr-2 font-semibold text-gray-700">Select Inventory:</label>
           <select
+            id="inventory-select"
             value={selectedInventory}
             onChange={(e) => setSelectedInventory(e.target.value)}
-            className="border border-gray-300 p-2 rounded "
+            className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
           >
-            <option value="inventory1">Kitchen 1</option>
-            <option value="inventory2">Kitchen 2</option>
-            <option value="inventory3">Kitchen 3</option>
+            <option value="inventory1">Kitchen</option>
+            <option value="inventory2">Bar</option>
           </select>
         </div>
         
-        {/* Export Excel Button with Icon */}
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center"
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200 flex items-center shadow-md"
         >
-          <FaFileExcel size={24} className="" />
+          <FaFileExcel size={24} className="mr-1" />
+          Export to Excel
         </button>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300">
+        <table className="min-w-full bg-white shadow-lg rounded-lg">
           <thead>
-            <tr className="bg-gray-100 text-left text-sm text-gray-600 uppercase">
-              <th className="py-2 px-4 border">No.</th>
-              <th className="py-2 px-4 border">ID</th>
-              <th className="py-2 px-4 border">Name</th>
-              <th className="py-2 px-4 border">Unit</th>
-              <th className="py-2 px-4 border">Import Date</th>
-              <th className="py-2 px-4 border">Quantity Imported</th>
-              <th className="py-2 px-4 border">Export Date</th>
-              <th className="py-2 px-4 border">Remaining Quantity</th>
-              <th className="py-2 px-4 border">Notes</th>
+            <tr className="bg-gray-200 text-left text-sm text-gray-700 uppercase">
+              <th className="py-3 px-4">No.</th>
+              <th className="py-3 px-4">ID</th>
+              <th className="py-3 px-4">Name</th>
+              <th className="py-3 px-4">Unit</th>
+              <th className="py-3 px-4">Import Date</th>
+              <th className="py-3 px-4">Quantity Imported</th>
+              <th className="py-3 px-4">Export Date</th>
+              <th className="py-3 px-4">Remaining Quantity</th>
+              <th className="py-3 px-4">Notes</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={product.id} className="border-t">
-                <td className="py-2 px-4 border">{index + 1}</td>
-                <td className="py-2 px-4 border">{product.productCode}</td>
-                <td className="py-2 px-4 border">{product.productName}</td>
-                <td className="py-2 px-4 border">
+              <tr 
+                key={product.id} 
+                className={`transition duration-200 hover:bg-gray-100 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+              >
+                <td className="py-3 px-4 text-gray-700">{index + 1}</td>
+                <td className="py-3 px-4 text-gray-700">{product.productCode}</td>
+                <td className="py-3 px-4 text-gray-700">{product.productName}</td>
+                <td className="py-3 px-4">
                   <select
                     value={product.productUnit}
                     onChange={(e) =>
@@ -89,7 +91,7 @@ const WarehouseTable = () => {
                         )
                       )
                     }
-                    className="border border-gray-300 p-2 rounded"
+                    className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
                   >
                     <option value="kg">kg</option>
                     <option value="g">g</option>
@@ -99,11 +101,11 @@ const WarehouseTable = () => {
                     <option value="pack">pack</option>
                   </select>
                 </td>
-                <td className="py-2 px-4 border">{product.importDate}</td>
-                <td className="py-2 px-4 border">{product.quantityImported}</td>
-                <td className="py-2 px-4 border">{product.exportDate}</td>
-                <td className="py-2 px-4 border">{product.remainingQuantity}</td>
-                <td className="py-2 px-4 border">{product.notes}</td>
+                <td className="py-3 px-4 text-gray-700">{product.importDate}</td>
+                <td className="py-3 px-4 text-gray-700">{product.quantityImported}</td>
+                <td className="py-3 px-4 text-gray-700">{product.exportDate}</td>
+                <td className="py-3 px-4 text-gray-700">{product.remainingQuantity}</td>
+                <td className="py-3 px-4 text-gray-700">{product.notes}</td>
               </tr>
             ))}
           </tbody>
