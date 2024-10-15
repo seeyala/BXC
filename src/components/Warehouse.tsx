@@ -32,52 +32,52 @@ const WarehouseTable = () => {
   const [selectedInventory, setSelectedInventory] = useState('inventory1');
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="mb-6 flex justify-between items-center">
-        {/* Dropdown Button for Inventories */}
+    <div className="p-5">
+      <div className="mb-4 flex justify-between items-center">
+        {/* Dropdown Button for Cafes */}
         <div>
-          <label className="mr-2 font-semibold text-gray-700">Select Inventory:</label>
+          <label className="mr-2 font-semibold">Select Inventory:</label>
           <select
             value={selectedInventory}
             onChange={(e) => setSelectedInventory(e.target.value)}
-            className="border border-gray-300 p-2 rounded focus:ring-2 focus:ring-blue-300 focus:outline-none"
+            className="border border-gray-300 p-2 rounded "
           >
-            <option value="inventory1">Kitchen</option>
-            <option value="inventory2">Bar</option>
+            <option value="inventory1">Kitchen 1</option>
+            <option value="inventory2">Kitchen 2</option>
+            <option value="inventory3">Kitchen 3</option>
           </select>
         </div>
         
         {/* Export Excel Button with Icon */}
         <button
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-200 flex items-center shadow"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 flex items-center"
         >
-          <FaFileExcel size={20} className="mr-2" />
-          Export to Excel
+          <FaFileExcel size={24} className="" />
         </button>
       </div>
 
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table className="min-w-full text-sm text-gray-800">
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr className="bg-gray-100 text-left text-sm font-semibold uppercase tracking-wide text-gray-600">
-              <th className="py-3 px-5">No.</th>
-              <th className="py-3 px-5">ID</th>
-              <th className="py-3 px-5">Name</th>
-              <th className="py-3 px-5">Unit</th>
-              <th className="py-3 px-5">Import Date</th>
-              <th className="py-3 px-5">Quantity Imported</th>
-              <th className="py-3 px-5">Export Date</th>
-              <th className="py-3 px-5">Remaining Quantity</th>
-              <th className="py-3 px-5">Notes</th>
+            <tr className="bg-gray-100 text-left text-sm text-gray-600 uppercase">
+              <th className="py-2 px-4 border">No.</th>
+              <th className="py-2 px-4 border">ID</th>
+              <th className="py-2 px-4 border">Name</th>
+              <th className="py-2 px-4 border">Unit</th>
+              <th className="py-2 px-4 border">Import Date</th>
+              <th className="py-2 px-4 border">Quantity Imported</th>
+              <th className="py-2 px-4 border">Export Date</th>
+              <th className="py-2 px-4 border">Remaining Quantity</th>
+              <th className="py-2 px-4 border">Notes</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={product.id} className="hover:bg-gray-50 transition">
-                <td className="py-4 px-5 border-t">{index + 1}</td>
-                <td className="py-4 px-5 border-t">{product.productCode}</td>
-                <td className="py-4 px-5 border-t">{product.productName}</td>
-                <td className="py-4 px-5 border-t">
+              <tr key={product.id} className="border-t">
+                <td className="py-2 px-4 border">{index + 1}</td>
+                <td className="py-2 px-4 border">{product.productCode}</td>
+                <td className="py-2 px-4 border">{product.productName}</td>
+                <td className="py-2 px-4 border">
                   <select
                     value={product.productUnit}
                     onChange={(e) =>
@@ -89,7 +89,7 @@ const WarehouseTable = () => {
                         )
                       )
                     }
-                    className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    className="border border-gray-300 p-2 rounded"
                   >
                     <option value="kg">kg</option>
                     <option value="g">g</option>
@@ -99,11 +99,11 @@ const WarehouseTable = () => {
                     <option value="pack">pack</option>
                   </select>
                 </td>
-                <td className="py-4 px-5 border-t">{product.importDate}</td>
-                <td className="py-4 px-5 border-t">{product.quantityImported}</td>
-                <td className="py-4 px-5 border-t">{product.exportDate}</td>
-                <td className="py-4 px-5 border-t">{product.remainingQuantity}</td>
-                <td className="py-4 px-5 border-t">{product.notes}</td>
+                <td className="py-2 px-4 border">{product.importDate}</td>
+                <td className="py-2 px-4 border">{product.quantityImported}</td>
+                <td className="py-2 px-4 border">{product.exportDate}</td>
+                <td className="py-2 px-4 border">{product.remainingQuantity}</td>
+                <td className="py-2 px-4 border">{product.notes}</td>
               </tr>
             ))}
           </tbody>

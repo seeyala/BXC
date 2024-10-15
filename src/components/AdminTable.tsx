@@ -110,7 +110,7 @@ const AdminTable = () => {
   
           {/* Filter Dropdown */}
           {filterVisible && (
-            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"> {/* Dropdown styling */}
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"> 
               <p className="px-4 py-2 font-semibold text-gray-600">Filter by:</p>
   
               <button 
@@ -244,7 +244,7 @@ const AdminTable = () => {
         <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.role}</td>
         {/* Actions */}
         <td className="px-4 py-2 flex justify-center items-center space-x-2">
-          <button className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition focus:outline-none" aria-label="Edit">
+          <button onClick={handleCreate}className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 transition focus:outline-none" aria-label="Edit">
             <FaEdit />
           </button>
           <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition focus:outline-none" aria-label="Delete">
