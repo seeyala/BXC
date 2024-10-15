@@ -22,7 +22,8 @@ const Modal = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
               value={newEntry.username}
               onChange={handleInputChange}
               required
-              className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring focus:ring-green-200"
+              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              placeholder=""
             />
           </div>
 
@@ -38,7 +39,8 @@ const Modal = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
               value={newEntry.password}
               onChange={handleInputChange}
               required
-              className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring focus:ring-green-200"
+              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              placeholder=""
             />
           </div>
 
@@ -52,7 +54,7 @@ const Modal = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
               name="store"
               value={newEntry.store}
               onChange={handleInputChange}
-              className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring focus:ring-green-200"
+              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
             >
               <option value="Store 1">Store 1</option>
               <option value="Store 2">Store 2</option>
@@ -70,7 +72,7 @@ const Modal = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
               name="role"
               value={newEntry.role}
               onChange={handleInputChange}
-              className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring focus:ring-green-200"
+              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
             >
               <option value="Admin">Admin</option>
               <option value="User">User</option>

@@ -11,7 +11,7 @@ interface Product {
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
-    <div className="rounded overflow-hidden shadow-lg bg-white p-2">
+    <div className="rounded overflow-hidden shadow-lg bg-white p-2 transition-transform duration-200 ease-in-out hover:scale-105">
       <div className="flex justify-center">
         <img className="h-32 object-cover" src={product.image} alt={product.name} />
       </div>
