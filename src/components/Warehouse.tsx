@@ -46,15 +46,13 @@ const WarehouseTable = () => {
             <option value="inventory2">Bar</option>
           </select>
         </div>
-        
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200 flex items-center shadow-md"
-        >
-          <FaFileExcel size={24} className="mr-1" />
-          Export to Excel
-        </button>
-      </div>
-
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 active:bg-green-700 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
+              >
+                <FaFileExcel size={24} className="mr-1" />
+                Export to Excel
+              </button>
+        </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-lg rounded-lg">
           <thead>
