@@ -5,8 +5,8 @@ ____________________________________
 
 Extension for Tailwind CSS in VS code
 ____________________________________
-Tailwind CSS IntelliSense
-PostCSS Language Support
+-Tailwind CSS IntelliSense
+-PostCSS Language Support
 __________________________________
 
 Bootstrap Docs 

@@ -10,7 +10,7 @@ import { MdOutlineRestaurantMenu } from "react-icons/md";
 import AdminTable from './AdminTable';
 import MenuItem from './MenuItem';
 import Warehouse from './Warehouse';
-import bxcLogo from '../app/images/bxc.png';
+import bxcLogo from '../app/images/cafe.png';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
