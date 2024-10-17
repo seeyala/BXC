@@ -21,6 +21,19 @@ const AdminTable = () => {
     { no: 11, store: "Store 2", username: "BXC HauPhoMai", password: "pass11", role: "User" },
     { no: 12, store: "Store 1", username: "BXC PINN", password: "pass12", role: "Admin" },
     { no: 13, store: "Store 3", username: "Mata", password: "pass13", role: "Admin" },
+    { no: 1, store: "Store 1", username: "BXC PINN", password: "pass1password", role: "Admin" },
+    { no: 2, store: "Store 2", username: "BXC HauPhoMai", password: "pass2", role: "User" },
+    { no: 3, store: "Store 3", username: "BXC NgheuHapThai", password: "pass3", role: "Manager" },
+    { no: 4, store: "Store 1", username: "BXC TomHumAlaska", password: "pass1password", role: "Manager" },
+    { no: 5, store: "Store 2", username: "BXC CaHapXa", password: "pass2", role: "User" },
+    { no: 6, store: "Store 3", username: "Mata", password: "pass3", role: "Admin" },
+    { no: 7, store: "Store 1", username: "Hyde", password: "pass3", role: "User" },
+    { no: 8, store: "Store 2", username: "BXC CaHapXa", password: "pass8", role: "User" },
+    { no: 9, store: "Store 1", username: "BXC TomHumAlaska", password: "pass9", role: "Manager" },
+    { no: 10, store: "Store 3", username: "BXC NgheuHapThai", password: "pass10", role: "Manager" },
+    { no: 11, store: "Store 2", username: "BXC HauPhoMai", password: "pass11", role: "User" },
+    { no: 12, store: "Store 1", username: "BXC PINN", password: "pass12", role: "Admin" },
+    { no: 13, store: "Store 3", username: "Mata", password: "pass13", role: "Admin" },
     // Add more data as needed
   ];
 
