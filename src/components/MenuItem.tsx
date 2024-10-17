@@ -92,28 +92,32 @@ const ProductList: React.FC = () => {
 
   return (
     <div>
-
       <div className="flex justify-left space-x-2 p-4">
         <button
-          className={`py-2 px-4 font-semibold rounded-lg ${activeCategory === 'cafe' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          className={`py-2 px-4 font-semibold rounded-lg transition duration-200 transform hover:scale-105 hover:bg-blue-400 focus:outline-none active:scale-95 ${
+            activeCategory === 'cafe' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+          }`}
           onClick={() => setActiveCategory('cafe')}
         >
           Cafe
         </button>
         <button
-          className={`py-2 px-4 font-semibold rounded-lg ${activeCategory === 'cake' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          className={`py-2 px-4 font-semibold rounded-lg transition duration-200 transform hover:scale-105 hover:bg-blue-400 focus:outline-none active:scale-95 ${
+            activeCategory === 'cake' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+          }`}
           onClick={() => setActiveCategory('cake')}
         >
           Cake
         </button>
         <button
-          className={`py-2 px-4 font-semibold rounded-lg ${activeCategory === 'combo' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          className={`py-2 px-4 font-semibold rounded-lg transition duration-200 transform hover:scale-105 hover:bg-blue-400 focus:outline-none active:scale-95 ${
+            activeCategory === 'combo' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'
+          }`}
           onClick={() => setActiveCategory('combo')}
         >
           Combo
         </button>
       </div>
-
       <div className="grid grid-cols-4 gap-2 p-4">
         {filteredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
