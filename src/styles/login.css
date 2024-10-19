@@ -92,10 +92,10 @@ h2 {
 
 /* Additional styles for input field */
 .input-field {
-  position: relative; /* Ensure the input field has relative positioning */
-  border-bottom: 2px solid #ccc; /* Original underline */
+  position: relative;
+  border-bottom: 2px solid #ccc;
   margin: 15px 0;
-  padding-right: 40px; /* Add padding to make space for icon */
+  padding-right: 40px; /* Space for the icon */
 }
 
 .input-field label {
@@ -119,11 +119,38 @@ h2 {
   color: #fff;
 }
 
+/* Autofill and password suggestion styles */
+input:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-text-fill-color: #fff !important; /* Ensure text remains white */
+  border-bottom: 2px solid #ffffff00 !important; /* Change border color when autofilled */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:focus {
+  background-color: transparent !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
 .input-field input:focus ~ label,
-.input-field input:valid ~ label {
+.input-field input:valid ~ label,
+input:-webkit-autofill ~ label {
   font-size: 0.8rem;
   top: 10px;
   transform: translateY(-120%);
+  color: #ffffff; /* Label matches autofill border color */
+}
+
+/* Fix for Edge and Safari autofill background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Ensures autofill background is transparent */
+}
+
+/* Optional transition for smooth autofill interaction */
+input {
+  transition: border-bottom-color 0.3s ease, color 0.3s ease;
 }
 
 /* Style for password toggle icon */
