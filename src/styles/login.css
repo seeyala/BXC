@@ -232,7 +232,7 @@ button:hover {
   .wrapper {
     border-left: none; /* Remove divider */
     padding: 25px;
-    background-color: #003e8f; /* Adjust background for better visibility */
+    background-color: #000000; /* Adjust background for better visibility */
   }
 
   h2 {
