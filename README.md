@@ -24,4 +24,13 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
 NEXT_PUBLIC_API_URL=https://your-api-production.azurewebsites.net
 
 Khi bạn chạy next dev (phát triển), Next.js sẽ sử dụng biến môi trường trong .env.development.local. Khi bạn build ứng dụng với next build, nó sẽ sử dụng .env.production.local cho môi trường sản xuất.
+
+
+npm run dev: Chạy ứng dụng Next.js ở chế độ phát triển với tính năng hot-reload.
+
+
+npm run build: Build ứng dụng cho môi trường sản xuất.
+
+
+npm start: Chạy ứng dụng với mã đã build trong môi trường sản xuất.
 _______________________________________
