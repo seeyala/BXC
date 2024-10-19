@@ -1,6 +1,7 @@
 import LoginComponent from '../../components/LoginComponent';
 
 const LoginPage = () => {
+
   return (
     <div>
       <LoginComponent />

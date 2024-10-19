@@ -18,42 +18,47 @@ const LoginComponent: React.FC = () => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    
-    const loginData = { username, password };
+  
+    // Kiểm tra giá trị username và password
+  console.log("Username:", username);  // Kiểm tra giá trị username
+  console.log("Password:", password);  // Kiểm tra giá trị password
 
+  if (!username || !password) {
+    console.error("Both username and password are required.");
+    setError("Both username and password are required."); // Cập nhật thông báo lỗi
+    return; // Ngăn không cho gửi yêu cầu nếu các trường còn trống
+  }
+  
+    const loginData = {
+      username,  // Đảm bảo tên trường chính xác với API yêu cầu
+      password // Đảm bảo tên trường chính xác với API yêu cầu
+    };
+    console.log("Login data:", loginData); // Kiểm tra giá trị loginData
+  
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Account/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(loginData),  // Sử dụng giá trị từ state
+        body: JSON.stringify(loginData),
       });
   
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Login error:", errorData);
-        const errorMessages = errorData.errors; // Lấy thông tin lỗi cụ thể
-        if (errorMessages) {
-          for (const key in errorMessages) {
-            console.error(`${key}: ${errorMessages[key].join(', ')}`);
-          }
-        }
-        setError("Login failed: " + errorData.title);
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json();
-      // Lưu accessToken và refreshToken vào localStorage
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      // Đảm bảo rằng bạn chỉ đọc body một lần
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Login error:', errorData);
+      return;
+    }
   
-      // Xử lý phản hồi thành công ở đây
-      console.log("Login successful:", data);
+      const data = await response.json();
+      localStorage.setItem('accessToken', data.token);
+      console.log("Login successful:", data);{/* nhớ xóa dòng này */}
     } catch (error) {
       console.error("Error during login:", error);
     }
   };
+  
   return (
     <div className="login-page">
       {/* Left Side: Image */}
@@ -70,18 +75,23 @@ const LoginComponent: React.FC = () => {
           <div className="input-field">
             <input
               type="text"
-              id="username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => {
+                console.log("Updated username:", e.target.value); // Kiểm tra giá trị được cập nhật
+                setUsername(e.target.value);
+              }}
               required
             />
             <label htmlFor="username">Username</label>
           </div>
           <div className="input-field">
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? 'text' : "password"}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                console.log("Updated password:", e.target.value); // Kiểm tra giá trị được cập nhật
+                setPassword(e.target.value);
+              }}
               required
             />
             <label htmlFor="password">Password</label>
@@ -94,7 +104,7 @@ const LoginComponent: React.FC = () => {
           <div className="forget">
             <a href="#">Forgot password</a>
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">{error}</p>} {/* Hiển thị thông báo lỗi */}
           <button type="submit">Log In</button>
         </form>
       </div>
@@ -102,4 +112,4 @@ const LoginComponent: React.FC = () => {
   );
 };
 
-export default LoginComponent;
+export default LoginComponent; 
