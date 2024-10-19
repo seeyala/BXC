@@ -16,35 +16,44 @@ const LoginComponent: React.FC = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
     
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const loginData = { username, password };
 
     try {
-      const response = await fetch(`${apiUrl}/Account/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Account/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(loginData),  // Sử dụng giá trị từ state
       });
-
+  
       if (!response.ok) {
-        throw new Error('Login failed');
+        const errorData = await response.json();
+        console.error("Login error:", errorData);
+        const errorMessages = errorData.errors; // Lấy thông tin lỗi cụ thể
+        if (errorMessages) {
+          for (const key in errorMessages) {
+            console.error(`${key}: ${errorMessages[key].join(', ')}`);
+          }
+        }
+        setError("Login failed: " + errorData.title);
+        throw new Error("Login failed");
       }
 
       const data = await response.json();
-
-      console.log('Login success', data);
-
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('Invalid username or password');
+      // Lưu accessToken và refreshToken vào localStorage
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+  
+      // Xử lý phản hồi thành công ở đây
+      console.log("Login successful:", data);
+    } catch (error) {
+      console.error("Error during login:", error);
     }
-    console.log(apiUrl);
   };
-
   return (
     <div className="login-page">
       {/* Left Side: Image */}
@@ -61,12 +70,12 @@ const LoginComponent: React.FC = () => {
           <div className="input-field">
             <input
               type="text"
-              id="email"
+              id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-            <label htmlFor="email">Username</label>
+            <label htmlFor="username">Username</label>
           </div>
           <div className="input-field">
             <input
