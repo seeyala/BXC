@@ -16,11 +16,12 @@ ____________________________________
 .env.development.local: dành cho môi trường phát triển.
 .env.production.local: dành cho môi trường sản xuất.
 bash
-Sao chép mã
+
 # .env.development.local
 NEXT_PUBLIC_API_URL=http://localhost:3000
 
 # .env.production.local
 NEXT_PUBLIC_API_URL=https://your-api-production.azurewebsites.net
+
 Khi bạn chạy next dev (phát triển), Next.js sẽ sử dụng biến môi trường trong .env.development.local. Khi bạn build ứng dụng với next build, nó sẽ sử dụng .env.production.local cho môi trường sản xuất.
 _______________________________________
