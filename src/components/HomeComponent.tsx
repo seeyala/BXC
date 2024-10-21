@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import Image from "next/image";
 import {
   FaBars, FaUserCircle, FaSignOutAlt,
@@ -11,11 +11,13 @@ import AdminTable from './AdminTable';
 import MenuItem from './MenuItem';
 import Warehouse from './Warehouse';
 import bxcLogo from '../app/images/cafe.png';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string>(""); 
+  const [activeMenu, setActiveMenu] = useState<string>("");
+  const router = useRouter();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
@@ -31,6 +33,12 @@ const Home = () => {
     setActiveMenu(label); 
     setIsMenuOpen(true); 
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    router.push('/login');
+  };
+  
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -105,7 +113,7 @@ const Home = () => {
               />
               <span className="block px-4 py-2 text text-[#3C2F2F]">User</span>
             </button>
-            <a href="#" className="block px-4 py-2 text text-[#3C2F2F] ml-4">
+            <a href="#"  onClick={handleLogout} className="block px-4 py-2 text text-[#3C2F2F] ml-4">
               <FaSignOutAlt className="inline-block mr-2" />
             </a>
           </div>
