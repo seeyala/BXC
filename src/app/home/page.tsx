@@ -15,4 +15,4 @@ const HomePage= () => {
     );
   };
   
-  export default withAuth(HomePage);
+export default withAuth(HomePage);
