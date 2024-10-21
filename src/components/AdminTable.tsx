@@ -285,32 +285,32 @@ const AdminTable = () => {
         </tbody>
       </table>
 
-{/* Pagination Controls */}
-<div className="flex justify-between mt-4">
-  <button 
-    className={`px-4 py-2 rounded transition ${
-      currentPage === 1 
-        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-        : 'bg-gray-500 text-white hover:bg-gray-600'
-    }`}
-    onClick={handlePreviousPage}
-    disabled={currentPage === 1}
-  >
-    Previous Page
-  </button>
-  
-  <button 
-    className={`px-4 py-2 rounded transition ${
-      currentPage >= Math.ceil(filteredData.length / rowsPerPage) 
-        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-        : 'bg-gray-500 text-white hover:bg-gray-600'
-    }`}
-    onClick={handleNextPage}
-    disabled={currentPage >= Math.ceil(filteredData.length / rowsPerPage)}
-  >
-    Next Page
-  </button>
-</div>
+      {/* Pagination Controls */}
+      <div className="flex justify-between mt-4">
+        <button 
+          className={`px-4 py-2 rounded transition ${
+            currentPage === 1 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+              : 'bg-gray-500 text-white hover:bg-gray-600'
+          }`}
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          Previous Page
+        </button>
+        
+        <button 
+          className={`px-4 py-2 rounded transition ${
+            currentPage >= Math.ceil(filteredData.length / rowsPerPage) 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+              : 'bg-gray-500 text-white hover:bg-gray-600'
+          }`}
+          onClick={handleNextPage}
+          disabled={currentPage >= Math.ceil(filteredData.length / rowsPerPage)}
+        >
+          Next Page
+        </button>
+      </div>
 
       {/* Modal for Adding New Entry */}
       <Modal 
