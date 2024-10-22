@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { FaFileExcel, FaPlusCircle } from 'react-icons/fa';
+import { FaFileExcel, FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
 
 const WarehouseTable = () => {
   const [products, setProducts] = useState({
@@ -27,7 +27,6 @@ const WarehouseTable = () => {
         remainingQuantity: 150,
         notes: 'Special handling required',
       },
-      // More kitchen products...
     ],
     bar: [
       {
@@ -52,7 +51,6 @@ const WarehouseTable = () => {
         remainingQuantity: 70,
         notes: 'Must be shaken before serving',
       },
-      // More bar products...
     ],
   });
 
@@ -74,7 +72,6 @@ const WarehouseTable = () => {
   }
 
   const handleAddProduct = () => {
-    // Simple validation
     if (!newProduct.productCode || !newProduct.productName) {
       alert("Product Code and Product Name are required.");
       return;
@@ -89,6 +86,7 @@ const WarehouseTable = () => {
     }));
     setNewProduct(initialProductState());
     setIsAdding(false);
+    scrollToBottom(); // Scroll to the new row
   };
 
   const handleCancel = () => {
@@ -105,6 +103,11 @@ const WarehouseTable = () => {
     }));
   };
 
+  const scrollToBottom = () => {
+    const table = document.getElementById('product-table');
+    table.scrollTop = table.scrollHeight;
+  };
+
   return (
     <div className="p-5">
       <div className="mb-4 flex justify-between items-center">
@@ -119,7 +122,15 @@ const WarehouseTable = () => {
             <option value="bar">Bar</option>
           </select>
 
-          {!isAdding && (
+          {isAdding ? (
+            <button
+              onClick={handleCancel}
+              className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 active:bg-red-700 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
+            >
+              <FaTimesCircle size={16} className="mr-2" />
+              Cancel
+            </button>
+          ) : (
             <button
               onClick={() => setIsAdding(true)}
               className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 active:bg-green-700 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
@@ -131,26 +142,26 @@ const WarehouseTable = () => {
         </div>
 
         <button
-          className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-800 active:bg-gray-900 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 active:bg-green-700 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
         >
           <FaFileExcel size={20} className="mr-2" />
           Export to Excel
         </button>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-300">
+      <div className="overflow-x-auto" id="product-table">
+        <table className="min-w-full bg-white shadow-md rounded-lg border border-gray-300 text-xs sm:text-sm md:text-base lg:text-lg">
           <thead className="bg-gray-100 text-left text-xs text-gray-600 uppercase tracking-wider">
             <tr>
-              <th className="py-3 px-2 border-b" style={{ width: '50px' }}>No.</th>
-              <th className="py-3 px-2 border-b" style={{ width: '100px' }}>ID</th>
-              <th className="py-3 px-2 border-b" style={{ width: '200px' }}>Name</th>
-              <th className="py-3 px-2 border-b" style={{ width: '100px' }}>Unit</th>
-              <th className="py-3 px-2 border-b" style={{ width: '100px' }}>Import Date</th>
-              <th className="py-3 px-2 border-b" style={{ width: '150px' }}>Quantity Imported</th>
-              <th className="py-3 px-2 border-b" style={{ width: '100px' }}>Export Date</th>
-              <th className="py-3 px-2 border-b" style={{ width: '150px' }}>Remaining Quantity</th>
-              <th className="py-3 px-2 border-b" style={{ width: '200px' }}>Notes</th>
+              <th className="py-3 px-2 border-b">No.</th>
+              <th className="py-3 px-2 border-b">ID</th>
+              <th className="py-3 px-2 border-b">Name</th>
+              <th className="py-3 px-2 border-b">Unit</th>
+              <th className="py-3 px-2 border-b">Import Date</th>
+              <th className="py-3 px-2 border-b">Quantity Imported</th>
+              <th className="py-3 px-2 border-b">Export Date</th>
+              <th className="py-3 px-2 border-b">Remaining Quantity</th>
+              <th className="py-3 px-2 border-b">Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -180,6 +191,7 @@ const WarehouseTable = () => {
                 <td className="py-3 px-2 text-gray-700 border-b">{product.notes}</td>
               </tr>
             ))}
+
             {isAdding && (
               <tr>
                 <td className="py-3 px-2 text-gray-700 border-b">{products[selectedInventory].length + 1}</td>
@@ -189,7 +201,7 @@ const WarehouseTable = () => {
                     value={newProduct.productCode}
                     onChange={(e) => setNewProduct({ ...newProduct, productCode: e.target.value })}
                     placeholder="New ID"
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -197,15 +209,15 @@ const WarehouseTable = () => {
                     type="text"
                     value={newProduct.productName}
                     onChange={(e) => setNewProduct({ ...newProduct, productName: e.target.value })}
-                    placeholder="New Name"
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    placeholder="Product Name"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
                   <select
                     value={newProduct.productUnit}
                     onChange={(e) => setNewProduct({ ...newProduct, productUnit: e.target.value })}
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   >
                     {['kg', 'g', 'lit', 'can', 'box', 'pack', 'bottle'].map(unit => (
                       <option key={unit} value={unit}>{unit}</option>
@@ -217,7 +229,7 @@ const WarehouseTable = () => {
                     type="date"
                     value={newProduct.importDate}
                     onChange={(e) => setNewProduct({ ...newProduct, importDate: e.target.value })}
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -225,8 +237,7 @@ const WarehouseTable = () => {
                     type="number"
                     value={newProduct.quantityImported}
                     onChange={(e) => setNewProduct({ ...newProduct, quantityImported: e.target.value })}
-                    placeholder="Quantity"
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -234,7 +245,7 @@ const WarehouseTable = () => {
                     type="date"
                     value={newProduct.exportDate}
                     onChange={(e) => setNewProduct({ ...newProduct, exportDate: e.target.value })}
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -242,8 +253,7 @@ const WarehouseTable = () => {
                     type="number"
                     value={newProduct.remainingQuantity}
                     onChange={(e) => setNewProduct({ ...newProduct, remainingQuantity: e.target.value })}
-                    placeholder="Remaining"
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -252,7 +262,7 @@ const WarehouseTable = () => {
                     value={newProduct.notes}
                     onChange={(e) => setNewProduct({ ...newProduct, notes: e.target.value })}
                     placeholder="Notes"
-                    className="border border-gray-300 p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
               </tr>
@@ -262,18 +272,12 @@ const WarehouseTable = () => {
       </div>
 
       {isAdding && (
-        <div className="flex justify-end mt-4">
+        <div className="mt-4 flex justify-end">
           <button
             onClick={handleAddProduct}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 active:bg-blue-700 transition duration-200 mr-2"
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 active:bg-green-700 transition duration-200 flex items-center shadow-md active:scale-95 focus:outline-none"
           >
-            Save
-          </button>
-          <button
-            onClick={handleCancel}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 active:bg-red-700 transition duration-200"
-          >
-            Cancel
+            Add Product
           </button>
         </div>
       )}
