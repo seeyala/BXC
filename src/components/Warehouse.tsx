@@ -2,8 +2,34 @@
 import { useState } from 'react';
 import { FaFileExcel, FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
 
+type Product = {
+  id: number;
+  productCode: string;
+  productName: string;
+  productUnit: string;
+  importDate: string;
+  quantityImported: number;
+  exportDate: string;
+  remainingQuantity: number;
+  notes: string;
+};
+
+type Products = Record<'kitchen' | 'bar', Product[]>;
+
+const initialProductState = (): Product => ({
+  id: 0, // Temporary ID, you'll want to handle this based on your logic
+  productCode: '',
+  productName: '',
+  productUnit: 'kg',
+  importDate: '',
+  quantityImported: 0,
+  exportDate: '',
+  remainingQuantity: 0,
+  notes: '',
+});
+
 const WarehouseTable = () => {
-  const [products, setProducts] = useState({
+  const [products, setProducts] = useState<Products>({
     kitchen: [
       {
         id: 1,
@@ -54,22 +80,11 @@ const WarehouseTable = () => {
     ],
   });
 
-  const [selectedInventory, setSelectedInventory] = useState('kitchen');
-  const [newProduct, setNewProduct] = useState(initialProductState());
+  const [selectedInventory, setSelectedInventory] = useState<'kitchen' | 'bar'>('kitchen');
+  const [newProduct, setNewProduct] = useState<Product>(initialProductState());
   const [isAdding, setIsAdding] = useState(false);
 
-  function initialProductState() {
-    return {
-      productCode: '',
-      productName: '',
-      productUnit: 'kg',
-      importDate: '',
-      quantityImported: '',
-      exportDate: '',
-      remainingQuantity: '',
-      notes: '',
-    };
-  }
+  
 
   const handleAddProduct = () => {
     if (!newProduct.productCode || !newProduct.productName) {
@@ -77,24 +92,31 @@ const WarehouseTable = () => {
       return;
     }
 
+    // Assigning a new ID based on the existing products length
+    const newId = products[selectedInventory].length ? Math.max(...products[selectedInventory].map(p => p.id)) + 1 : 1;
+
+    const { id, ...productWithoutId } = newProduct;
+
     setProducts((prevProducts) => ({
       ...prevProducts,
       [selectedInventory]: [
         ...prevProducts[selectedInventory],
-        { id: prevProducts[selectedInventory].length + 1, ...newProduct },
+        { id: newId, ...productWithoutId },
       ],
-    }));
+    }));    
+    
     setNewProduct(initialProductState());
     setIsAdding(false);
     scrollToBottom(); // Scroll to the new row
-  };
+};
+
 
   const handleCancel = () => {
     setNewProduct(initialProductState());
     setIsAdding(false);
   };
 
-  const handleUnitChange = (id, value) => {
+  const handleUnitChange = (id: number, value: string) => {
     setProducts((prevProducts) => ({
       ...prevProducts,
       [selectedInventory]: prevProducts[selectedInventory].map((product) =>
@@ -105,8 +127,11 @@ const WarehouseTable = () => {
 
   const scrollToBottom = () => {
     const table = document.getElementById('product-table');
-    table.scrollTop = table.scrollHeight;
+    if (table) {
+      table.scrollTop = table.scrollHeight; // Scroll to the bottom of the table
+    }
   };
+
 
   return (
     <div className="p-5">
@@ -115,7 +140,7 @@ const WarehouseTable = () => {
           <select
             id="inventory-select"
             value={selectedInventory}
-            onChange={(e) => setSelectedInventory(e.target.value)}
+            onChange={(e) => setSelectedInventory(e.target.value as 'kitchen' | 'bar')}
             className="border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
           >
             <option value="kitchen">Kitchen</option>
@@ -200,8 +225,8 @@ const WarehouseTable = () => {
                     type="text"
                     value={newProduct.productCode}
                     onChange={(e) => setNewProduct({ ...newProduct, productCode: e.target.value })}
-                    placeholder="New ID"
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    placeholder="ID"
+                    className="w-12 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -209,15 +234,15 @@ const WarehouseTable = () => {
                     type="text"
                     value={newProduct.productName}
                     onChange={(e) => setNewProduct({ ...newProduct, productName: e.target.value })}
-                    placeholder="Product Name"
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    placeholder="Name"
+                    className="w-24 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
                   <select
                     value={newProduct.productUnit}
                     onChange={(e) => setNewProduct({ ...newProduct, productUnit: e.target.value })}
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-20 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   >
                     {['kg', 'g', 'lit', 'can', 'box', 'pack', 'bottle'].map(unit => (
                       <option key={unit} value={unit}>{unit}</option>
@@ -229,15 +254,15 @@ const WarehouseTable = () => {
                     type="date"
                     value={newProduct.importDate}
                     onChange={(e) => setNewProduct({ ...newProduct, importDate: e.target.value })}
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-40 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
                   <input
                     type="number"
                     value={newProduct.quantityImported}
-                    onChange={(e) => setNewProduct({ ...newProduct, quantityImported: e.target.value })}
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    onChange={(e) => setNewProduct({ ...newProduct, quantityImported: Number(e.target.value) })}
+                    className="w-20 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -245,15 +270,15 @@ const WarehouseTable = () => {
                     type="date"
                     value={newProduct.exportDate}
                     onChange={(e) => setNewProduct({ ...newProduct, exportDate: e.target.value })}
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-40 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
                   <input
                     type="number"
                     value={newProduct.remainingQuantity}
-                    onChange={(e) => setNewProduct({ ...newProduct, remainingQuantity: e.target.value })}
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    onChange={(e) => setNewProduct({ ...newProduct, remainingQuantity: Number(e.target.value) })}
+                    className="w-20 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
                 <td className="py-3 px-2 border-b">
@@ -262,7 +287,7 @@ const WarehouseTable = () => {
                     value={newProduct.notes}
                     onChange={(e) => setNewProduct({ ...newProduct, notes: e.target.value })}
                     placeholder="Notes"
-                    className="w-full border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
+                    className="w-48 border border-gray-300 p-2 sm:p-1 md:p-2 lg:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 transition duration-200"
                   />
                 </td>
               </tr>

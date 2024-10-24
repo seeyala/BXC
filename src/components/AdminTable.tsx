@@ -25,6 +25,9 @@ const AdminTable = () => {
     { no: 15, store: "Store 3", username: "Mata", password: "pass13", role: "Admin" },
     // Add more data as needed
   ];
+  type PasswordVisibilityState = {
+    [key: number]: boolean;  // Keys are numbers, values are booleans
+  };
 
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
@@ -32,10 +35,10 @@ const AdminTable = () => {
   const [filterType, setFilterType] = useState("");
   const [selectedStore, setSelectedStore] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
-  const [passwordVisibility, setPasswordVisibility] = useState({});
+  const [passwordVisibility, setPasswordVisibility] = useState<PasswordVisibilityState>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newEntry, setNewEntry] = useState({ username: '', password: '', store: 'Store 1', role: 'User' });
-
+    
   // Toggle filter dropdown visibility
   const toggleFilterDropdown = () => {
     setFilterVisible(!filterVisible);
@@ -73,8 +76,8 @@ const AdminTable = () => {
       filtered = filtered.filter(item => item.store === selectedStore);
     } else if (filterType === "role") {
       filtered = filtered.filter(item => item.role === selectedRole);
-      setFilteredData(filtered);
     }
+    setFilteredData(filtered);
   };
     
 
@@ -92,26 +95,29 @@ const AdminTable = () => {
     setIsModalOpen(true);
   };
 
-  const togglePasswordVisibility = (no) => {
-    setPasswordVisibility(prevState => ({
+  const togglePasswordVisibility = (no: number) => {
+    setPasswordVisibility((prevState) => ({
       ...prevState,
       [no]: !prevState[no]
     }));
   };
+  
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const handleInputChange = (e) => {
+  
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewEntry(prevEntry => ({
       ...prevEntry,
       [name]: value
     }));
   };
-  const handleFormSubmit = (e) => {
+  
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newData = {
-      no: data.length + 1,
+      no: data.length > 0 ? data[data.length - 1].no + 1 : 1,
       ...newEntry
     };
     setData([...data, newData]);
@@ -313,13 +319,7 @@ const AdminTable = () => {
       </div>
 
       {/* Modal for Adding New Entry */}
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={handleModalClose} 
-        onSubmit={handleFormSubmit} 
-        handleInputChange={handleInputChange}
-        newEntry={newEntry}  
-      />
+      <Modal isOpen={isModalOpen} onClose={handleModalClose} onSubmit={handleFormSubmit} handleInputChange={handleInputChange}  newEntry={newEntry} />
     </div>
   );
 };

@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 
-const Modal = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  newEntry: {
+    username: string;
+    password: string;
+    store: string;
+    role: string;
+  };
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
   if (!isOpen) return null;
 
   return (
