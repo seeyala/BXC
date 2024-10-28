@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from 'react';
+import Image from 'next/image';
+
 
 interface Product {
   id: number;
@@ -13,7 +15,13 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
     <div className="rounded overflow-hidden shadow-lg bg-white p-2 transition-transform duration-200 ease-in-out hover:scale-105">
       <div className="flex justify-center">
-        <img className="h-32 object-cover" src={product.image} alt={product.name} />
+      <Image
+          className="h-32 object-cover" 
+          src={product.image} 
+          alt={product.name} 
+          width={128} 
+          height={128} 
+        />
       </div>
       <div className="py-4">
         <div className="font-bold text-xl">{product.name}</div>

@@ -11,9 +11,7 @@ const LoginComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -23,13 +21,10 @@ const LoginComponent = () => {
     event.preventDefault();
 
   if (!username || !password) {
-    setError("Both username and password are required."); 
     return; 
   }
   
   const loginData = { username, password };
-
-  setLoading(true);
   
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Account/login`, {
@@ -40,13 +35,6 @@ const LoginComponent = () => {
         body: JSON.stringify(loginData),
       });
   
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Login error:', errorData);
-        setError(errorData.message || "An error occurred. Please try again.");
-        return;
-      }
-  
       const data = await response.json();
       localStorage.setItem('accessToken', data.token);
 
@@ -54,10 +42,7 @@ const LoginComponent = () => {
         window.location.reload();
     }, 100);
       router.push('/home');
-    } catch (error) {
-      setError("An error occurred. Please try again.");
-    } finally {
-      setLoading(false); 
+    } catch{
     }
   };
   
@@ -104,7 +89,6 @@ const LoginComponent = () => {
           <div className="forget">
             <a href="#">Forgot password</a>
           </div>
-          {error && <p className="error-message">{error}</p>} 
           <button type="submit">Log In</button>
         </form>
       </div>
