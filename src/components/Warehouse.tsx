@@ -92,22 +92,16 @@ const WarehouseTable = () => {
       return;
     }
 
-    // Assigning a new ID based on the existing products length
-    const newId = products[selectedInventory].length ? Math.max(...products[selectedInventory].map(p => p.id)) + 1 : 1;
-
-    const { id, ...productWithoutId } = newProduct;
-
     setProducts((prevProducts) => ({
       ...prevProducts,
       [selectedInventory]: [
         ...prevProducts[selectedInventory],
-        { id: newId, ...productWithoutId },
       ],
     }));    
     
     setNewProduct(initialProductState());
     setIsAdding(false);
-    scrollToBottom(); // Scroll to the new row
+    scrollToBottom(); 
 };
 
 

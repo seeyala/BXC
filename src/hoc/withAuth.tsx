@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ComponentType } from 'react';
 
-const withAuth = (WrappedComponent: ComponentType) => {
-  const Auth = (props: any) => {
+const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
+  const Auth: React.FC<P> = (props) => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
 
@@ -19,7 +19,7 @@ const withAuth = (WrappedComponent: ComponentType) => {
         }
       }, [router]);
       if (loading) {
-        return <div></div>;
+        return;
       }
     return <WrappedComponent {...props} />;
   };

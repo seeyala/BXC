@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useState, useEffect } from "react";
+import { SetStateAction, useState} from "react";
 import Image from "next/image";
 import {
   FaBars, FaUserCircle, FaSignOutAlt,
