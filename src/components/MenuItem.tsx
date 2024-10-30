@@ -1,21 +1,15 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { StaticImageData } from 'next/image';
+import cafe from '../app/images/ly-cafe.jpg';
 
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: 'cafe' | 'cake' | 'combo';
-}
-
-const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+const ProductCard: React.FC<{ product: { id: number; name: string; price: number; image: StaticImageData; category: string; } }> = ({ product }) => {
   return (
     <div className="rounded overflow-hidden shadow-lg bg-white p-2 transition-transform duration-200 ease-in-out hover:scale-105">
       <div className="flex justify-center">
-      <Image
+        <Image
           className="h-32 object-cover" 
           src={product.image} 
           alt={product.name} 
@@ -34,19 +28,19 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 };
 
 const ProductList: React.FC = () => {
-  const products: Product[] = [
+  const products = [
     {
       id: 1,
       name: 'Product 1',
       price: 29.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'cafe',
     },
     {
       id: 2,
       name: 'Product 2',
       price: 39.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'cake',
 
     },
@@ -54,42 +48,42 @@ const ProductList: React.FC = () => {
       id: 3,
       name: 'Product 3',
       price: 19.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'combo',
     },
     {
       id: 4,
       name: 'Product 4',
       price: 49.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'combo',
     },
     {
       id: 5,
       name: 'Product 5',
       price: 24.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'cake',
     },
     {
       id: 6,
       name: 'Product 6',
       price: 34.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'cafe',
     },
     {
       id: 7,
       name: 'Product 7',
       price: 44.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'cake',
     },
     {
       id: 8,
       name: 'Product 8',
       price: 54.99,
-      image: 'https://via.placeholder.com/150',
+      image: cafe,
       category: 'combo',
     },
   ];
