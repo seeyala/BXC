@@ -19,8 +19,9 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
         }
       }, [router]);
       if (loading) {
-        return;
+        return <div>Please reload</div>;
       }
+      
     return <WrappedComponent {...props} />;
   };
 
