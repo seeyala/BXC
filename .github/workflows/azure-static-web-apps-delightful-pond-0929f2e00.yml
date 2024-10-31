@@ -25,6 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Create .env.production.local
+        run: |
+          echo "Creating .env.production.local"
+          echo "API_URL=${{ secrets.API_URL }}" >> .env.production.local
+
       - name: Load Environment Variables
         run: |
           echo "Loading environment variables from .env.production.local"
