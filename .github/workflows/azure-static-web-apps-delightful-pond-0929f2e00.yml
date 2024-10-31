@@ -33,10 +33,9 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "upload"
-          app_location: "/" # Đường dẫn tới mã nguồn ứng dụng của bạn
+          app_location: "./" # Đường dẫn mã nguồn ứng dụng của bạn
           api_location: ""
-          output_location: ".next" # Thư mục build của ứng dụng Next.js
-          github_id_token: ${{ secrets.GITHUB_TOKEN }} # Sử dụng token GitHub để xác thực
+          output_location: ".next" # Sử dụng token GitHub để xác thực
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
