@@ -23,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x' # Kiểm tra và dùng đúng phiên bản Node.js phù hợp với dự án của bạn
+          node-version: '20.x'
 
       - name: Install dependencies
         run: npm install
