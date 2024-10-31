@@ -64,7 +64,7 @@ jobs:
           app_location: "/" # Directory containing your application source code
           api_location: "" # Leave empty if not using an API
           output_location: ".next" # Build output directory for Next.js
-          github_id_token: ${{ steps.idtoken.outputs.result }}
+          github_id_token: ${{ secrets.GITHUB_TOKEN }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
