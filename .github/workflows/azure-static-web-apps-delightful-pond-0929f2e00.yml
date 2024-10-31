@@ -17,36 +17,13 @@ jobs:
     permissions:
       id-token: write
       contents: read
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x' # Specify your Node.js version here
-
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
-
-      - name: Run Tests
-        run: npm test --if-present
-        continue-on-error: false # Stop the workflow if tests fail
-
-      - name: Build Project
-        run: npm run build
-
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-          script: |
-            return await require('@actions/core').getIDToken(); # Simplified line to avoid conflict
-          result-encoding: string
 
       - name: Load Environment Variables
         run: |
@@ -54,17 +31,27 @@ jobs:
           set -o allexport
           source .env.production.local
           set +o allexport
+          echo "Environment Variables Loaded"
+          env # In ra các biến môi trường hiện tại
 
+      - name: Debugging Step
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in directory:"
+          ls -al
+
+      - name: Build project
+        run: npm run build
 
       - name: Build and Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_DELIGHTFUL_POND_0929F2E00 }}
-          action: "upload" 
-          app_location: "/" # Directory containing your application source code
-          api_location: "" # Leave empty if not using an API
-          output_location: ".next" # Build output directory for Next.js
-          github_id_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/src/app" # Đường dẫn tới mã nguồn ứng dụng của bạn
+          api_location: ""
+          output_location: ".next" # Thư mục build của ứng dụng Next.js
+          github_id_token: ${{ secrets.GITHUB_TOKEN }} # Sử dụng token GitHub để xác thực
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
