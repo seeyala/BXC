@@ -24,11 +24,12 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Set Permissions for .git/config
+        run: |
+          sudo chmod -R u+w .git
+
       - name: Install Dependencies
         run: npm install
-
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
 
       - name: Get ID Token
         id: idtoken
