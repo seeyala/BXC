@@ -28,9 +28,11 @@ jobs:
         run: npm install @actions/core
 
       - name: Get ID Token
-        id: idtoken
+        id: get_token
         run: |
-          echo "ID_TOKEN=$(node -e "const core = require('@actions/core'); core.getIDToken().then(token => console.log(token));")" >> $GITHUB_ENV
+          echo "Getting ID Token..."
+          ID_TOKEN=$(node -e "require('@actions/core').getIDToken().then(token => console.log(token));")
+          echo "ID_TOKEN=$ID_TOKEN" >> $GITHUB_ENV
 
       - name: Build and Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
