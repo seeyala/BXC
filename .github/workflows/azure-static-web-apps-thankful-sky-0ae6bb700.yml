@@ -33,9 +33,9 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_THANKFUL_SKY_0AE6BB700 }}
           action: "upload"
-          app_location: "src/app" # Đường dẫn mã nguồn ứng dụng
+          app_location: "/" # Đường dẫn mã nguồn ứng dụng
           api_location: "" # Đường dẫn mã nguồn API - tùy chọn
-          output_location: "out" # Thư mục chứa nội dung đã xây dựng của ứng dụng - tùy chọn
+          output_location: "" # Thư mục chứa nội dung đã xây dựng của ứng dụng - tùy chọn
           github_id_token: ${{ env.ID_TOKEN }}
 
   close_pull_request_job:
