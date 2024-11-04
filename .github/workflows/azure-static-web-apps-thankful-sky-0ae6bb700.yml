@@ -28,15 +28,12 @@ jobs:
         run: |
           sudo chmod -R u+w .git
 
-      - name: Install Dependencies
-        run: npm install
-
       - name: Get ID Token
         id: idtoken
         uses: actions/github-script@v6
         with:
           script: |
-            return await require('@actions/core').getIDToken()
+            return await github.rest.actions.getOidcToken()
           result-encoding: string
 
       - name: Build and Deploy to Azure Static Web Apps
