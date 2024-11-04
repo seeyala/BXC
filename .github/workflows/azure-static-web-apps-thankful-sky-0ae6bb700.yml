@@ -24,17 +24,13 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Set Permissions for .git/config
-        run: |
-          sudo chmod -R u+w .git
+      - name: Install Core Actions
+        run: npm install @actions/core
 
       - name: Get ID Token
         id: idtoken
-        uses: actions/github-script@v6
-        with:
-          script: |
-            return await github.rest.actions.getOidcToken()
-          result-encoding: string
+        run: |
+          echo "ID_TOKEN=$(node -e "const core = require('@actions/core'); core.getIDToken().then(token => console.log(token));")" >> $GITHUB_ENV
 
       - name: Build and Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
@@ -44,7 +40,7 @@ jobs:
           app_location: "/" # Đường dẫn mã nguồn ứng dụng
           api_location: "" # Đường dẫn mã nguồn API - tùy chọn
           output_location: "" # Thư mục chứa nội dung đã xây dựng của ứng dụng - tùy chọn
-          github_id_token: ${{ steps.idtoken.outputs.result }}
+          github_id_token: ${{ env.ID_TOKEN }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
