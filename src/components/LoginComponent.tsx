@@ -34,7 +34,15 @@ const LoginComponent = () => {
         },
         body: JSON.stringify(loginData),
       });
-  
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Đăng nhập thành công', data);
+        // Lưu token hoặc xử lý đăng nhập thành công
+      } else {
+        console.error('Đăng nhập thất bại', response.statusText);
+      }
+
       const data = await response.json();
       localStorage.setItem('accessToken', data.token);
 
