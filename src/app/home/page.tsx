@@ -1,5 +1,6 @@
 "use client";
 import Home from '../../components/HomeComponent';
+import withAuth from '../../hoc/withAuth'
 
 const HomePage= () => {
     return (
@@ -11,5 +12,5 @@ const HomePage= () => {
     );
   };
   
-export default HomePage;
+export default withAuth(HomePage);
 // export default HomePage;
