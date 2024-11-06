@@ -1,10 +1,16 @@
 // src/app/page.tsx
+"use client";
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 const HomePage: React.FC = () => {
-    return (
-      <div>
-        <h1>There is no page here</h1>
-      </div>
-    );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/login');
+  }, [router]);
+
+  return null; 
   };
   
   export default HomePage;
