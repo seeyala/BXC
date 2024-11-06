@@ -4,7 +4,7 @@ import Image from 'next/image';
 import LogoPlaceholder from '../app/images/icons/LogoPlaceholder.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 
 const LoginComponent = () => {
@@ -12,6 +12,13 @@ const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      router.push('/home');
+    }
+  }, [router]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
