@@ -38,19 +38,15 @@ const LoginComponent = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Đăng nhập thành công', data);
-        // Lưu token hoặc xử lý đăng nhập thành công
+        // Lưu token vào localStorage
+        localStorage.setItem('accessToken', data.token);
+        // Chuyển hướng đến trang home
+        router.push('/home');
       } else {
         console.error('Đăng nhập thất bại', response.statusText);
       }
-
-      const data = await response.json();
-      localStorage.setItem('accessToken', data.token);
-
-      setTimeout(() => {
-        window.location.reload();
-    }, 100);
-      router.push('/home');
-    } catch{
+    } catch (error) {
+      console.error('Lỗi khi đăng nhập', error);
     }
   };
   
