@@ -1,12 +1,13 @@
 "use client";
 import Home from '../../components/HomeComponent';
-import withAuth from '../../hoc/withAuth'
+import withAuth from '../../hoc/withAuth';
+import UploadImage from '../../components/UploadImage';
 
 const HomePage= () => {
     return (
       <div>
         <header>
-            <Home />
+            <Home /><UploadImage />
         </header>
       </div>
     );
