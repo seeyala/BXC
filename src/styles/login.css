@@ -50,7 +50,7 @@ body {
   padding: 30px;
   text-align: center;
   border-left: 1px solid rgba(255, 255, 255, 0); /* Optional: Divider between columns */
-  background-color: #A9A9A9; /* Semi-transparent background for contrast */
+  background: linear-gradient(to bottom right, #6f4e37bd, #f0df9e);
   color: #fff; /* Text color */
 }
 
