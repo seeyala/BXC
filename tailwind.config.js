@@ -13,6 +13,16 @@ module.exports = {
       colors: {
         coffee: '#6f4e37',
       },
+      keyframes: {
+        "steam-bubble": {
+          "0%": { transform: "translateY(0) scale(1)", opacity: "0.6" },
+          "50%": { transform: "translateY(-10px) scale(1.2)", opacity: "0.4" },
+          "100%": { transform: "translateY(-20px) scale(0.8)", opacity: "0" },
+        },
+      },
+      animation: {
+        "steam-bubble": "steam-bubble 1.5s infinite ease-in-out",
+      },
     },
   },
   plugins: [
