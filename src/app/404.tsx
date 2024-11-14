@@ -25,7 +25,7 @@ const Custom404: React.FC = () => {
 
         {/* Description */}
         <p className="text-lg text-coffee-600 text-opacity-80 mb-8">
-          It seems like the page you're looking for is unavailable. But don't worry, you can always return to our homepage.
+          It seems like the page you&apos;re looking for is unavailable. But don&apos;t worry, you can always return to our homepage.
         </p>
 
         {/* Button to navigate back to the homepage */}
@@ -37,7 +37,7 @@ const Custom404: React.FC = () => {
 
         {/* Optional text */}
         <p className="text-coffee-600 text-opacity-80 mt-6 animate-bounce">
-          Maybe the coffee spilled, or the page got lost. Let's try again!
+          Maybe the coffee spilled, or the page got lost. Let&apos;s try again!
         </p>
       </div>
     </div>
