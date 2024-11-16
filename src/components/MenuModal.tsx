@@ -4,17 +4,17 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  newEntry: {
-    username: string;
-    email: string;
-    phone: string;
-    store: string;
-    role: string;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  newItem: {
+    name: string;
+    description: string;
+    price: string;
+    category: string;
+    image: string;
   };
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputChange, newEntry }) => {
+const MenuItemModal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputChange, newItem }) => {
   if (!isOpen) return null;
 
   return (
@@ -22,93 +22,91 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputCha
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       {/* Main modal content */}
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
-        <h2 className="text-xl font-semibold mb-6 text-gray-800">New Entry</h2>
+        <h2 className="text-xl font-semibold mb-6 text-gray-800">Add New Menu Item</h2>
         <form onSubmit={onSubmit}>
-          {/* Username Input */}
+          {/* Name Input */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="username">
-              Username
+            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="name">
+              Item Name
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={newEntry.username}
+              id="name"
+              name="name"
+              value={newItem.name}
               onChange={handleInputChange}
               required
               className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-              placeholder="Enter username"
+              placeholder="Enter item name"
             />
           </div>
 
-          {/* Email Input */}
+          {/* Description Input */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="email">
-              Email
+            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="description">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={newItem.description}
+              onChange={handleInputChange}
+              required
+              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+              placeholder="Enter item description"
+            />
+          </div>
+
+          {/* Price Input */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="price">
+              Price
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={newEntry.email}
+              type="number"
+              id="price"
+              name="price"
+              value={newItem.price}
               onChange={handleInputChange}
               required
               className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-              placeholder="Enter email address"
+              placeholder="Enter price"
             />
           </div>
 
-          {/* Phone Number Input */}
+          {/* Category Selector */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="phone">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={newEntry.phone}
-              onChange={handleInputChange}
-              required
-              className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-              placeholder="Enter phone number"
-            />
-          </div>
-
-          {/* Store Selector */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="store">
-              Store
+            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="category">
+              Category
             </label>
             <select
-              id="store"
-              name="store"
-              value={newEntry.store}
+              id="category"
+              name="category"
+              value={newItem.category}
               onChange={handleInputChange}
               className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
             >
-              <option value="Store 1">Store 1</option>
-              <option value="Store 2">Store 2</option>
-              <option value="Store 3">Store 3</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Cake">Cake</option>
+              <option value="Combo">Combo</option>
             </select>
           </div>
 
-          {/* Role Selector */}
+          {/* Image Input */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="role">
-              Role
+            <label className="block text-sm font-medium mb-2 text-gray-700" htmlFor="image">
+              Image URL
             </label>
-            <select
-              id="role"
-              name="role"
-              value={newEntry.role}
+            <input
+              type="text"
+              id="image"
+              name="image"
+              value={newItem.image}
               onChange={handleInputChange}
+              required
               className="mt-1 block w-full rounded-md p-2 bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
-            >
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
-              <option value="Manager">Manager</option>
-            </select>
+              placeholder="Enter image URL"
+            />
           </div>
 
           {/* Modal action buttons */}
@@ -124,7 +122,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputCha
               type="submit"
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
             >
-              Add
+              Add Item
             </button>
           </div>
         </form>
@@ -133,4 +131,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, handleInputCha
   );
 };
 
-export default Modal;
+export default MenuItemModal;
