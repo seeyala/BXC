@@ -2,32 +2,29 @@
 import '../styles/global.css';
 import '../styles/mobile.css';
 import React, { useState } from 'react';
-import { FaPlusCircle, FaEdit, FaTrash, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaPlusCircle, FaEdit, FaTrash, } from 'react-icons/fa';
 import { TbAdjustmentsHorizontal } from "react-icons/tb";
 import Modal from './Modal';
 
 const AdminTable = () => {
   const initialData = [
-    { no: 1, store: "Store 1", username: "BXC PINN", password: "pass1password", role: "Admin" },
-    { no: 2, store: "Store 2", username: "BXC HauPhoMai", password: "pass2", role: "User" },
-    { no: 3, store: "Store 3", username: "BXC NgheuHapThai", password: "pass3", role: "Manager" },
-    { no: 4, store: "Store 1", username: "BXC TomHumAlaska", password: "pass1password", role: "Manager" },
-    { no: 5, store: "Store 2", username: "BXC CaHapXa", password: "pass2", role: "User" },
-    { no: 6, store: "Store 3", username: "Mata", password: "pass3", role: "Admin" },
-    { no: 7, store: "Store 1", username: "Hyde", password: "pass3", role: "User" },
-    { no: 8, store: "Store 2", username: "BXC CaHapXa", password: "pass8", role: "User" },
-    { no: 9, store: "Store 1", username: "BXC TomHumAlaska", password: "pass9", role: "Manager" },
-    { no: 10, store: "Store 3", username: "BXC NgheuHapThai", password: "pass10", role: "Manager" },
-    { no: 11, store: "Store 2", username: "BXC HauPhoMai", password: "pass11", role: "User" },
-    { no: 12, store: "Store 1", username: "BXC PINN", password: "pass12", role: "Admin" },
-    { no: 13, store: "Store 3", username: "Mata", password: "pass13", role: "Admin" },
-    { no: 14, store: "Store 1", username: "BXC PINN", password: "pass1password", role: "Admin" },
-    { no: 15, store: "Store 3", username: "Mata", password: "pass13", role: "Admin" },
+    { no: 1, store: "Store 1", username: "BXC PINN", email: "bxc.pinn@example.com", phone: "1234567890", role: "Admin" },
+    { no: 2, store: "Store 2", username: "BXC HauPhoMai", email: "bxc.hau@example.com", phone: "9876543210", role: "User" },
+    { no: 3, store: "Store 3", username: "BXC NgheuHapThai", email: "bxc.ngheu@example.com", phone: "4561237890", role: "Manager" },
+    { no: 4, store: "Store 1", username: "BXC TomHumAlaska", email: "bxc.tomhum@example.com", phone: "7894561230", role: "Manager" },
+    { no: 5, store: "Store 2", username: "BXC CaHapXa", email: "bxc.ca@example.com", phone: "3216549870", role: "User" },
+    { no: 6, store: "Store 3", username: "Mata", email: "mata@example.com", phone: "6543217890", role: "Admin" },
+    { no: 7, store: "Store 1", username: "Hyde", email: "hyde@example.com", phone: "7893216540", role: "User" },
+    { no: 8, store: "Store 2", username: "BXC CaHapXa", email: "bxc.ca@example.com", phone: "9876543210", role: "User" },
+    { no: 9, store: "Store 1", username: "BXC TomHumAlaska", email: "bxc.tomhum@example.com", phone: "4567891230", role: "Manager" },
+    { no: 10, store: "Store 3", username: "BXC NgheuHapThai", email: "bxc.ngheu@example.com", phone: "7891234560", role: "Manager" },
+    { no: 11, store: "Store 2", username: "BXC HauPhoMai", email: "bxc.hau@example.com", phone: "1237894560", role: "User" },
+    { no: 12, store: "Store 1", username: "BXC PINN", email: "bxc.pinn@example.com", phone: "3217896540", role: "Admin" },
+    { no: 13, store: "Store 3", username: "Mata", email: "mata@example.com", phone: "7896541230", role: "Admin" },
+    { no: 14, store: "Store 1", username: "BXC PINN", email: "bxc.pinn@example.com", phone: "1234567890", role: "Admin" },
+    { no: 15, store: "Store 3", username: "Mata", email: "mata@example.com", phone: "9876541230", role: "Admin" },
     // Add more data as needed
-  ];
-  type PasswordVisibilityState = {
-    [key: number]: boolean;  // Keys are numbers, values are booleans
-  };
+  ];  
 
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
@@ -35,10 +32,15 @@ const AdminTable = () => {
   const [filterType, setFilterType] = useState("");
   const [selectedStore, setSelectedStore] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
-  const [passwordVisibility, setPasswordVisibility] = useState<PasswordVisibilityState>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newEntry, setNewEntry] = useState({ username: '', password: '', store: 'Store 1', role: 'User' });
-    
+  const [newEntry, setNewEntry] = useState({
+    username: '',
+    email: '',
+    phone: '',
+    store: 'Store 1',
+    role: 'User',
+  });
+      
   // Toggle filter dropdown visibility
   const toggleFilterDropdown = () => {
     setFilterVisible(!filterVisible);
@@ -95,13 +97,6 @@ const AdminTable = () => {
     setIsModalOpen(true);
   };
 
-  const togglePasswordVisibility = (no: number) => {
-    setPasswordVisibility((prevState) => ({
-      ...prevState,
-      [no]: !prevState[no]
-    }));
-  };
-  
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
@@ -118,12 +113,12 @@ const AdminTable = () => {
     e.preventDefault();
     const newData = {
       no: data.length > 0 ? data[data.length - 1].no + 1 : 1,
-      ...newEntry
+      ...newEntry,
     };
     setData([...data, newData]);
-    setNewEntry({ username: '', password: '', store: 'Store 1', role: 'User' });
+    setNewEntry({ username: '', email: '', phone: '', store: 'Store 1', role: 'User' });
     handleModalClose();
-  };
+  };  
 
   return (
     <div className="p-4">
@@ -229,14 +224,15 @@ const AdminTable = () => {
         </div>
       </div>
 
-      {/* Table */}
+    {/* Table */}
       <table className="min-w-full table-auto shadow-lg rounded-lg">
         <thead>
           <tr className="bg-gray-100">
             <th className="text-center text-sm font-semibold text-gray-700 py-3 px-4 w-12">No.</th>
             <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Store</th>
             <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Username</th>
-            <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Password</th>
+            <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Email</th>
+            <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Phone</th>
             <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Role</th>
             <th className="text-center text-sm font-semibold text-gray-700 py-2 px-4">Actions</th>
           </tr>
@@ -247,35 +243,10 @@ const AdminTable = () => {
               <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.no}</td>
               <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.store}</td>
               <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.username}</td>
-              {/* Password Box */}
-              <td className="px-4 py-2 text-sm text-gray-700 text-left relative min-w-[60px] max-w-[100px]">
-                <div className="relative flex items-center">
-                  <span
-                    className="truncate"
-                    style={{
-                      display: 'inline-block',
-                      maxWidth: 'calc(100% - 2.5rem)', 
-                      minWidth: '20ch',
-                      overflow: 'hidden',
-                      whiteSpace: 'nowrap',
-                    }}
-                    title={passwordVisibility[item.no] ? item.password : '***********'}
-                  >
-                    {passwordVisibility[item.no] ? item.password : '***********'}
-                  </span>
-                  <button 
-                    onClick={() => togglePasswordVisibility(item.no)} 
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-200 rounded-full transition focus:outline-none" 
-                    aria-label="Toggle password visibility"
-                  >
-                    {passwordVisibility[item.no] ? (
-                      <FaEyeSlash className="text-gray-700" />
-                    ) : (
-                      <FaEye className="text-gray-700" />
-                    )}
-                  </button>
-                </div>
-              </td>
+              {/* Email */}
+              <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.email}</td>
+              {/* Phone */}
+              <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.phone}</td>
               <td className="px-4 py-2 text-sm text-gray-700 text-left">{item.role}</td>
               {/* Actions */}
               <td className="px-4 py-2 flex justify-center items-center space-x-2">
@@ -292,7 +263,7 @@ const AdminTable = () => {
       </table>
 
       {/* Pagination Controls */}
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-4 items-center">
         <button 
           className={`px-4 py-2 rounded transition ${
             currentPage === 1 
@@ -304,7 +275,12 @@ const AdminTable = () => {
         >
           Previous Page
         </button>
-        
+
+        {/* Page Counter */}
+        <span className="text-sm text-gray-600">
+          Page {currentPage} of {Math.ceil(filteredData.length / rowsPerPage)}
+        </span>
+
         <button 
           className={`px-4 py-2 rounded transition ${
             currentPage >= Math.ceil(filteredData.length / rowsPerPage) 

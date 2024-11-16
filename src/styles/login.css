@@ -49,9 +49,10 @@ body {
   align-items: center; /* Center horizontally */
   padding: 30px;
   text-align: center;
-  border-left: 1px solid rgba(255, 255, 255, 0); /* Optional: Divider between columns */
+  border-left: 1px solid #6f4e37bd; /* Optional: Divider between columns */
   background: linear-gradient(to bottom right, #6f4e37bd, #f0df9e);
   color: #fff; /* Text color */
+  
 }
 
 .title {
